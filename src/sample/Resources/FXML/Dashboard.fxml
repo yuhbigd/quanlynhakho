@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.DashboardController">
+    <children>
+        <Button fx:id="itemSoldBtn" layoutX="26.0" layoutY="50.0" mnemonicParsing="false" onAction="#itemSoldAction" prefHeight="194.0" prefWidth="205.0" style="-fx-background-radius: 100%; -fx-border-radius: 100%;" text="DANH SÁCH CHI TIẾT" />
+        <Label layoutX="217.0" layoutY="15.0" text="Thống kê trong ngày :" />
+        <Label layoutX="371.0" layoutY="96.0" text="tiền thu vào" />
+        <Label layoutX="371.0" layoutY="166.0" text="Tiền chi ra" />
+        <Label layoutX="374.0" layoutY="227.0" text="Chênh lệch" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="4.0" layoutX="16.0" layoutY="264.0" stroke="WHITE" strokeType="INSIDE" width="657.0" />
+        <Label layoutX="45.0" layoutY="285.0" text="Biểu đồ doanh thu các ngày trong tháng" />
+        <LineChart fx:id="dayChart" layoutX="8.0" layoutY="322.0" prefHeight="250.0" prefWidth="320.0">
+            <xAxis>
+                <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="yAxis" side="LEFT" />
+            </yAxis>
+        </LineChart>
+        <Label fx:id="moneyReceived" layoutX="519.0" layoutY="96.0" text="0" />
+        <Label fx:id="moneySpent" layoutX="519.0" layoutY="166.0" text="0" />
+        <Label fx:id="diff" layoutX="519.0" layoutY="227.0" text="0" />
+        <Label layoutX="372.0" layoutY="51.0" text="out of stock" />
+        <Label fx:id="stockOut" layoutX="519.0" layoutY="51.0" />
+      <Label layoutX="426.0" layoutY="285.0" text=" thống kê loại hàng bán chạy trong tháng" />
+      <PieChart fx:id="circleChart" layoutX="345.0" layoutY="322.0" prefHeight="250.0" prefWidth="320.0" />
+      <Label fx:id="date" layoutX="360.0" layoutY="15.0" prefHeight="17.0" prefWidth="180.0" />
+    </children>
+</AnchorPane>

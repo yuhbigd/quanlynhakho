@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.HomeController">
+   <children>
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0">
+         <left>
+            <VBox prefHeight="800.0" prefWidth="112.0" spacing="50.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="homeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#homeButtonOnClick" prefHeight="80.0" prefWidth="100.0" text="NHÀ CHÍNH" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#intvetoryOnClick" prefHeight="80.0" prefWidth="100.0" text="HÀNG HOÁ" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sellOnClick" prefHeight="80.0" prefWidth="100.0" text="XUẤT HÀNG" />
+                  <Button fx:id="admin" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#adminOnClick" prefHeight="80.0" prefWidth="100.0" text="ADMIN" />
+                  <AnchorPane prefHeight="113.0" prefWidth="112.0">
+                     <children>
+                        <Label fx:id="username" layoutX="23.0" layoutY="22.0" prefHeight="17.0" prefWidth="60.0" text="Tên đăng nhập" />
+                        <Label fx:id="clock" layoutX="23.0" layoutY="67.0" text="Ngày giờ" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <AnchorPane fx:id="centerPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

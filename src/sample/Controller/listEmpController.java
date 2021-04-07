@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import sample.ConnectionClass;
+import sample.Others.DialogError;
 import sample.Others.Employee;
 import sample.Others.View;
 
@@ -22,6 +23,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class listEmpController extends AbstractController implements Initializable {
@@ -60,7 +62,7 @@ public class listEmpController extends AbstractController implements Initializab
     private Button searchBtn;
 
     @FXML
-    private Button addBtn;
+    private Button deleteBtn;
 
     @FXML
     private Button updateBtn;
@@ -85,7 +87,22 @@ public class listEmpController extends AbstractController implements Initializab
     }
     @FXML
     void deleteAction(ActionEvent event) {
+        try {
+            Connection con = ConnectionClass.getInstances().getConnection();
+            String sql ="delete from login where user_name = ?";
 
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1,emp.getUser_name());
+            pstmt.executeUpdate();
+            new DialogError("Thành Công");
+            deleteBtn.setDisable(true);
+            setDataForList();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public listEmpController() {
@@ -95,7 +112,7 @@ public class listEmpController extends AbstractController implements Initializab
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateBtn.setDisable(true);
-
+        deleteBtn.setDisable(true);
         userNameCol.setCellValueFactory(new PropertyValueFactory<>("user_name"));
         passCol.setCellValueFactory(new PropertyValueFactory<>("password"));
         posCol.setCellValueFactory(new PropertyValueFactory<>("ten_chuc_vu"));
@@ -135,6 +152,7 @@ public class listEmpController extends AbstractController implements Initializab
             if(event.getClickCount() > 0) {
                 if(listEmp.getSelectionModel().getSelectedItem() != null) {
                     updateBtn.setDisable(false);
+                    deleteBtn.setDisable(false);
                     emp = listEmp.getSelectionModel().getSelectedItem();
                     if(event.getClickCount() > 1) {
                         new View("/sample/Resources/FXML/updateEmpForm.fxml");

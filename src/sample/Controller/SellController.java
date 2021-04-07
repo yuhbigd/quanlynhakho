@@ -84,7 +84,7 @@ public class SellController extends AbstractController implements Initializable 
                 pstmt.setString(2,LoginController.loggerUsername);
                 pstmt.setInt(3,Integer.parseInt(quanTextField.getText()));
                 pstmt.setDouble(4,Double.parseDouble(priceLabel.getText()));
-                pstmt.setDouble(5,totalReceived);
+                pstmt.setDouble(5,Double.parseDouble(moneyReceivedTF.getText()));
                 pstmt.setDouble(6,charge);
                 pstmt.setDouble(7,gia_nhap_Map.get(bcode));
                 pstmt.execute();

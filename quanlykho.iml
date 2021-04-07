@@ -10,6 +10,6 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="mysql-connector-java-8.0.23" level="project" />
     <orderEntry type="library" name="jfoenix-9.0.10" level="project" />
-    <orderEntry type="library" name="controlsfx-9.0.0" level="project" />
+    <orderEntry type="library" name="controlsfx-11.1.0" level="project" />
   </component>
 </module>

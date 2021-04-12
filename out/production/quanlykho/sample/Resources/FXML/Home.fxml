@@ -1,17 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.HomeController">
    <children>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0">
          <left>
-            <VBox prefHeight="800.0" prefWidth="112.0" spacing="50.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="800.0" prefWidth="112.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="homeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#homeButtonOnClick" prefHeight="80.0" prefWidth="100.0" text="NHÀ CHÍNH" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#intvetoryOnClick" prefHeight="80.0" prefWidth="100.0" text="HÀNG HOÁ" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sellOnClick" prefHeight="80.0" prefWidth="100.0" text="XUẤT HÀNG" />
+                  <Button fx:id="homeButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#homeButtonOnClick" prefHeight="80.0" prefWidth="100.0" text="Thống kê chung" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#intvetoryOnClick" prefHeight="80.0" prefWidth="100.0" text="Hàng tồn kho" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sellOnClick" prefHeight="80.0" prefWidth="100.0" text="Xuất hàng" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#nhapHang" prefHeight="80.0" prefWidth="100.0" text="Nhập hàng" />
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#listKH" prefHeight="80.0" prefWidth="100.0" text="Danh sách khách hàng">
+                     <graphic>
+                        <VBox prefHeight="57.0" prefWidth="100.0">
+                           <children>
+                              <Label prefHeight="24.0" prefWidth="58.0" text="Danh sách" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="khách hàng">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </graphic>
+                  </Button>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#listNCC" prefHeight="80.0" prefWidth="100.0" text="Danh sách nhà cung cấp">
+                     <graphic>
+                        <VBox prefHeight="67.0" prefWidth="104.0">
+                           <children>
+                              <Label text="Danh sách " VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="nhà cung cấp">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </graphic>
+                  </Button>
                   <Button fx:id="admin" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#adminOnClick" prefHeight="80.0" prefWidth="100.0" text="ADMIN" />
                   <AnchorPane prefHeight="113.0" prefWidth="112.0">
                      <children>

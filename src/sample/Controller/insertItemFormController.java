@@ -1,4 +1,5 @@
 package sample.Controller;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -10,6 +11,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sample.ConnectionClass;
 import sample.Others.DialogError;
+import sample.Others.Item;
+import sample.Others.View;
+import sample.Others.initialization;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -18,13 +22,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class insertFormController implements Initializable {
+public class insertItemFormController implements Initializable {
 
     @FXML
     private TextField nTF;
-
-    @FXML
-    private TextField qTF;
 
     @FXML
     private Label qTextField1;
@@ -60,22 +61,30 @@ public class insertFormController implements Initializable {
     Connection con ;
     private String item_type;
     private String getValueRadio;
+
+    @FXML
+    void scanAction(ActionEvent event) {
+        scanBarcodeController.barcode = new SimpleStringProperty();
+        bTF.textProperty().bindBidirectional(scanBarcodeController.barcode);
+        new View("/sample/Resources/FXML/scanBarcode.fxml");
+    }
+
     @FXML
     void saveAction(ActionEvent event) throws SQLException {
-        if(bTF.getText().equals("")||nTF.getText().equals("")||qTF.getText().equals("")||pTF.getText().equals("")||item_type.equals("")){
-            new DialogError("khong duoc bo trong cac vung nhap");
+        if(bTF.getText().equals("")||nTF.getText().equals("")||pTF.getText().equals("")||item_type.equals("")){
+            new DialogError("không được bỏ trống vùng nhập");
             return;
         }
-        if(Integer.parseInt(qTF.getText()) < 0 ||Double.parseDouble(pTF.getText())<0){
-            new DialogError("gia va so luong khong the am");
+        if(Double.parseDouble(pTF.getText())<=0){
+            new DialogError("giá không thể là số nhỏ hơn 0");
             return;
         }
-        if(listAllItemController.item_Barcode.contains(bTF.getText())){
-            new DialogError("trung barcode");
-            return;
+        for(Item i : initialization.allItem.values()){
+            if(i.getBarcode().equals(bTF.getText())){
+                new DialogError("trùng barcode");
+                return;
+            }
         }
-
-
 
         int id = 0;
 
@@ -88,7 +97,6 @@ public class insertFormController implements Initializable {
         while(rs.next()) {
             id = rs.getInt(1);
         }
-        System.out.println(id);
         ptsmt.close();
 
         String sql2 = "insert into item values(?,?,?,?,?,?,?);";
@@ -96,16 +104,17 @@ public class insertFormController implements Initializable {
 
         ptsmt = con.prepareStatement(sql2);
         ptsmt.setString(2,nTF.getText());
-        ptsmt.setInt(3,Integer.parseInt(qTF.getText()));
+        ptsmt.setInt(3,0);
         ptsmt.setDouble(4,Double.parseDouble(pTF.getText()));
         ptsmt.setInt(5,id);
-        ptsmt.setString(6,"dang ban");
+        ptsmt.setString(6,"đang bán");
         ptsmt.setDouble(7,Double.parseDouble(gia_nhapTF.getText()));
         ptsmt.setString(1,bTF.getText());
         ptsmt.execute();
         ptsmt.close();
-        HomeController.setChildPane("Resources/FXML/listAllItem.fxml");
+        initialization.allItem.put(bTF.getText()+" | "+nTF.getText(),new Item(bTF.getText(),nTF.getText(),0,Double.parseDouble(gia_nhapTF.getText()),tCB.getValue(),getValueRadio,Double.parseDouble(pTF.getText())));
         Stage s =  (Stage)saveBtn.getScene().getWindow();
+        new DialogError("Nhập loại hàng mới thành công");
         s.close();
 
     }
@@ -121,7 +130,7 @@ public class insertFormController implements Initializable {
                 return;
             }
             // them
-            listAllItemController.item_Type.add(typeTextField.getText());
+            initialization.itemType.add(typeTextField.getText());
 
             String sql = "SELECT MAX( id ) FROM item_type;";
             PreparedStatement ptsmt = con.prepareStatement(sql);
@@ -178,7 +187,7 @@ public class insertFormController implements Initializable {
 
 
         radio_dang_ban.setSelected(true);
-        getValueRadio = "dang ban";
+        getValueRadio = "đang bán";
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
@@ -196,7 +205,7 @@ public class insertFormController implements Initializable {
         typeTextField.setVisible(false);
         tCB.getItems().clear();
         observableListType.clear();
-        observableListType.addAll(listAllItemController.item_Type);
+        observableListType.addAll(initialization.itemType);
         observableListType.add("them loai moi");
         tCB.setItems(observableListType);
     }

@@ -1,6 +1,5 @@
 package sample.Controller;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,65 +24,77 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class DashboardController extends AbstractController implements Initializable {
+
     @FXML
     private AnchorPane pane;
 
     @FXML
-    private Label moneySpent;
+    private Button litsNhap;
 
     @FXML
-    private Label moneyReceived;
-
-    @FXML
-    private Label diff;
-
-    @FXML
-    private Label stockOut;
-
-    @FXML
-    private LineChart<?,?> dayChart;
-
-    @FXML
-    private PieChart circleChart;
-
-    @FXML
-    private Button itemSoldBtn;
+    private LineChart<?, ?> dayChart;
 
     @FXML
     private CategoryAxis xAxis;
-
 
     @FXML
     private NumberAxis yAxis;
 
     @FXML
+    private Label soLanXuat;
+
+    @FXML
+    private Label soLanNhap;
+
+    @FXML
+    private PieChart circleChart;
+
+    @FXML
     private Label date;
 
+    @FXML
+    private Button listXuat;
 
-    @Override
-    public AnchorPane getPane() {
-        return pane;
-    }
+    @FXML
+    private Label tongNhap;
 
+    @FXML
+    private Label tongXuat;
+
+    @FXML
+    private Label outOfStock;
 
     private Connection con;
+
+    @FXML
+    public void listNhap(ActionEvent event){
+        new View("/sample/Resources/FXML/listNhapHangToday.fxml");
+    }
+    @FXML
+    public void listXuat(ActionEvent event){
+        new View("/sample/Resources/FXML/listPhieuXuatToday.fxml");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY");
         LocalDateTime now = LocalDateTime.now();
 
         date.setText(dtf.format(now));
 
-            try {
-                con = ConnectionClass.getInstances().getConnection();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        try {
+            con = ConnectionClass.getInstances().getConnection();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-
+        try {
+            counting();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         try {
             dayChart.getData().addAll(dataOfLineChart());
             dayChart.setCreateSymbols(false);
@@ -91,67 +102,17 @@ public class DashboardController extends AbstractController implements Initializ
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        diff.setText("0");
-        try {
-            stockOut.setText(getCountOutOfStock());
-            moneySpent.setText(getMoneySpent());
-            moneyReceived.setText(getMoneyReceived());
-            diff.setText(Double.toString(Double.parseDouble(moneyReceived.getText()) - Double.parseDouble(moneySpent.getText())));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
     }
 
-    private String getCountOutOfStock() throws SQLException {
-        String sql = "select count(*) from item where so_luong = 0 and trang_thai = 'dang ban';";
-        PreparedStatement ptsmt = con.prepareStatement(sql);
-        String count = "0";
-        ResultSet rs = ptsmt.executeQuery();
-        if(rs.next()) {
-            count = rs.getString(1);
-        }
-        if(count!=null) {
-            return count;
-        }
-        return "0";
+    @Override
+    public AnchorPane getPane() {
+        return pane;
     }
 
-    private String getMoneyReceived() throws SQLException {
-        String sql = "select sum(tien_nhan) from ban_hang where date(ngay_ban) = date(localtime())";
-        PreparedStatement ptsmt = con.prepareStatement(sql);
-        String count = "0";
-        ResultSet rs = ptsmt.executeQuery();
-        if(rs.next()) {
-            count = rs.getString(1);
-        }
-        if(count!=null) {
-            return count;
-        }
-        return "0";
-    }
-
-
-    private String getMoneySpent() throws SQLException {
-        String sql = "select sum(tien_tra_lai) from ban_hang where date(ngay_ban) = date(localtime())";
-        PreparedStatement ptsmt = con.prepareStatement(sql);
-        String count = "0";
-        ResultSet rs = ptsmt.executeQuery();
-        if(rs.next()) {
-            count = rs.getString(1);
-        }
-        if(count!=null) {
-            return count;
-        }
-        return "0";
-    }
-
-    private XYChart.Series dataOfLineChart() throws SQLException  {
+    public XYChart.Series dataOfLineChart() throws SQLException  {
         XYChart.Series series = new XYChart.Series();
-        series.setName("số tiền lời");
-        String sql = "SELECT sum(tien_nhan-tien_tra_lai)-(gia_nhap_vao * so_luong) as \"ss\",date(ngay_ban)\n" +
-                "from ban_hang\n" +
-                "where date(ngay_ban) between date_add(now(),interval -1 month) and date(now())\n" +
-                "group by date(ngay_ban);";
+        series.setName("số tiền lời từ xuất hàng");
+        String sql = "select sum(c.so_luong_san_pham * c.gia_san_pham) - sum(c.so_luong_san_pham * i.gia_nhap ), date(x.thoi_gian_xuat)  from xuat_hang as x join chi_tiet_xuat_hang as c on x.ma_xuat_hang = c.ma_xuat_hang join item i on i.barcode = c.item_barcode where date(x.thoi_gian_xuat) between date_add(now(),interval -1 month) and date(now()) group by date(x.thoi_gian_xuat);";
         PreparedStatement ptsmt = con.prepareStatement(sql);
 
         ResultSet rs = ptsmt.executeQuery();
@@ -163,12 +124,9 @@ public class DashboardController extends AbstractController implements Initializ
         return series;
     }
 
-    private void createCircleChart() throws SQLException {
-        String sql = "SELECT it.ten,sum(b.so_luong)\n" +
-                "from ban_hang b join item i on b.Item_barcode = i.barcode\n" +
-                "join item_type it on i.Item_type_id = it.id \n" +
-                "where date(b.ngay_ban) between date_add(date(now()),interval -1 month) and date(now())\n" +
-                "group by it.id;";
+
+    public void createCircleChart() throws SQLException {
+        String sql = "select i.item_name, sum(c.so_luong_san_pham) as \"diff\" from xuat_hang as x join chi_tiet_xuat_hang as c on x.ma_xuat_hang = c.ma_xuat_hang join item i on i.barcode = c.item_barcode where date(x.thoi_gian_xuat) between date_add(now(),interval -1 month) and date(now())group by i.item_name;";
         PreparedStatement ptsmt = con.prepareStatement(sql);
 
         ResultSet rs = ptsmt.executeQuery();
@@ -183,7 +141,45 @@ public class DashboardController extends AbstractController implements Initializ
 
     }
 
-    public void itemSoldAction(ActionEvent event) {
-        new View("/sample/Resources/FXML/todaySell.fxml");
+    public void counting() throws SQLException {
+        String sql = "select count(*) from item where so_luong = 0 and trang_thai = 'đang bán';";
+        PreparedStatement ptsmt = con.prepareStatement(sql);
+        String count = "0";
+        ResultSet rs = ptsmt.executeQuery();
+        while(rs.next()) {
+            count = rs.getString(1);
+        }
+        outOfStock.setText(count);
+        ptsmt.close();
+
+        String sql1 = "select count(*) from xuat_hang where date(thoi_gian_xuat) = date(localtime());";
+        ptsmt = con.prepareStatement(sql1);
+        rs = ptsmt.executeQuery();
+        while(rs.next()) {
+            soLanXuat.setText(rs.getString(1));
+        }
+        ptsmt.close();
+        String sql2 = "select count(*) from nhap_hang where date(thoi_gian_nhap) = date(localtime());";
+        ptsmt = con.prepareStatement(sql2);
+        rs = ptsmt.executeQuery();
+        while(rs.next()) {
+            soLanNhap.setText(rs.getString(1));
+        }
+
+        String sql3 = "select if(sum(c.so_luong_san_pham*c.gia_san_pham) is null,0,sum(c.so_luong_san_pham*c.gia_san_pham)) from xuat_hang x join chi_tiet_xuat_hang c on c.ma_xuat_hang = x.ma_xuat_hang where date(thoi_gian_xuat) = date(localtime);";
+        ptsmt = con.prepareStatement(sql3);
+        rs = ptsmt.executeQuery();
+        while(rs.next()) {
+            tongXuat.setText(rs.getString(1));
+        }
+        String sql4 = "select if(sum(c.so_luong*c.gia_san_pham) is null,0,sum(c.so_luong*c.gia_san_pham)) from nhap_hang x join chi_tiet_lan_nhap c on c.ma_nhap_hang = x.ma_nhap_hang where date(thoi_gian_nhap) = date(localtime);";
+        ptsmt = con.prepareStatement(sql4);
+        rs = ptsmt.executeQuery();
+        while(rs.next()) {
+            tongNhap.setText(rs.getString(1));
+        }
+
+
+
     }
 }

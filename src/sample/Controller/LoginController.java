@@ -36,7 +36,7 @@ public class LoginController implements Initializable {
     private ProgressBar progressBar;
 
 
-    public static String loggerUsername = "";
+    public static String loggerUsername = "admin";
     public static int loggerAccessLevel;
 
     public void loginButtonOnAction(ActionEvent event) {
@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
                     loggerAccessLevel = rsmd.getInt(3);
                     SceneMap.getInstances().changeScene("resources/FXML/Home.fxml");
                 }else {
-                    new DialogError("Sai tai khoan hoac mat khau");
+                    new DialogError("Sai tài khoản hoặc mật khẩu");
                 }
                 login_Button.setDisable(false);
             }catch (Exception e) {

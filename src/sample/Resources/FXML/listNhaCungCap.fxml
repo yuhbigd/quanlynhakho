@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.nhaCungCapController">
+    <children>
+        <BorderPane prefHeight="600.0" prefWidth="688.0">
+            <center>
+                <TableView fx:id="listItem" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="570.0" prefWidth="647.0" BorderPane.alignment="CENTER">
+                    <columns>
+                        <TableColumn fx:id="ma_cong_ty" prefWidth="97.0" text="Mã công ty" />
+                        <TableColumn fx:id="ten_cong_ty" prefWidth="131.0" text="Tên công ty" />
+                        <TableColumn fx:id="dia_chi" prefWidth="128.0" text="Địa chỉ" />
+                        <TableColumn fx:id="so_dien_thoai" prefWidth="109.0" text="Số điện thoại" />
+                        <TableColumn fx:id="so_lan_nhap" prefWidth="105.0" text="Số lần nhập hàng" />
+                        <TableColumn fx:id="tong_tien_da_tra" prefWidth="117.0" text="Tiền đã chi " />
+                    </columns>
+                </TableView>
+            </center>
+            <top>
+                <AnchorPane prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <TextField fx:id="search_tf" layoutX="432.0" layoutY="4.0" prefHeight="25.0" prefWidth="185.0" promptText="tìm bằng id hoặc tên" />
+                        <Button fx:id="addBtn" layoutX="21.0" layoutY="2.0" mnemonicParsing="false" onAction="#addingAction" text="Thêm" />
+                        <Button fx:id="updateBtn" layoutX="122.0" layoutY="3.0" mnemonicParsing="false" onAction="#updatingAction" prefHeight="25.0" prefWidth="56.0" text="Sửa" />
+                    </children>
+                </AnchorPane>
+            </top>
+        </BorderPane>
+    </children>
+</AnchorPane>

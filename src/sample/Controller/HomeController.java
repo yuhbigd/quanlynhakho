@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import sample.SceneMap;
-//import sample.SceneMap;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -83,10 +83,24 @@ public class HomeController implements Initializable {
         setChildPane("Resources/FXML/listAllItem.fxml");
     }
     public void sellOnClick(ActionEvent event) {
-        setChildPane("Resources/FXML/Sell.fxml");
+        setChildPane("Resources/FXML/listXuatHang.fxml");
     }
     public void adminOnClick(ActionEvent event) {
         setChildPane("Resources/FXML/listEmp.fxml");
+    }
+    @FXML
+    void listKH(ActionEvent event) {
+        setChildPane("Resources/FXML/listKhach_hang.fxml");
+    }
+
+    @FXML
+    void listNCC(ActionEvent event) {
+        setChildPane("Resources/FXML/listNhaCungCap.fxml");
+    }
+
+    @FXML
+    void nhapHang(ActionEvent event) {
+        setChildPane("Resources/FXML/listNhapHang.fxml");
     }
     public static void setChildPane(String URL){
         AbstractController abs = null;

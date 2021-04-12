@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import sample.ConnectionClass;
 import sample.Others.Item;
 import sample.Others.View;
+import sample.Others.initialization;
 
 import java.net.URL;
 import java.sql.*;
@@ -82,9 +83,7 @@ public class listAllItemController extends AbstractController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         updateBtn.setDisable(true);
-
         barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
         item_name.setCellValueFactory(new PropertyValueFactory<>("item_name"));
         quantity.setCellValueFactory(new PropertyValueFactory<>("so_luong"));
@@ -132,26 +131,11 @@ public class listAllItemController extends AbstractController implements Initial
     }
 
     public void setDataForList() throws SQLException, ClassNotFoundException {
-        con = ConnectionClass.getInstances().getConnection();
         item_Barcode.clear();
         item_Type.clear();
-        String sql = "select i.gia_nhap as gia_nhap,i.barcode as \"barcode\",i.item_name as \"item_name\",i.so_luong as \"so_luong\",i.gia_ban as \"gia_ban\", it.ten as \"loai_hang\",i.trang_thai as \"trang_thai\"\n" +
-                "from item i join item_type it \n" +
-                "on i.Item_type_id = it.id\n" +
-                "order by i.barcode";
-
-        PreparedStatement ptsmt = con.prepareStatement(sql);
-        ResultSet rs = ptsmt.executeQuery();
         masterData.clear();
-        while(rs.next()) {
-            String bc = rs.getString("barcode");
-            String type = rs.getString("loai_hang");
-           masterData.add(new Item(bc,rs.getString("item_name"),rs.getInt("so_luong"),rs.getDouble("gia_ban"),type,rs.getString("trang_thai"),rs.getDouble("gia_nhap")));
-           item_Barcode.add(bc);
-           if(!item_Type.contains(type)){
-               item_Type.add(type);
-           }
-        }
+        initialization.setDataForItem();
+        masterData.addAll(initialization.allItem.values());
     }
 
 

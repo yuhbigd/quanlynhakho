@@ -30,9 +30,6 @@ public class updateItemFormController implements Initializable {
     private Label qTextField;
 
     @FXML
-    private TextField qTF;
-
-    @FXML
     private Label qTextField1;
 
     @FXML
@@ -118,8 +115,8 @@ public class updateItemFormController implements Initializable {
 
     private void update() throws SQLException{
         PreparedStatement ptsmt = null;
-        if( Integer.parseInt(qTF.getText()) < 0 ||Double.parseDouble(qTF.getText()) < 0 ){
-            new DialogError("Gia ban va so luong khong the am");
+        if(Double.parseDouble(pTF.getText()) < 0 ){
+            new DialogError("Giá bán không thể âm");
             return;
         }
 
@@ -137,16 +134,15 @@ public class updateItemFormController implements Initializable {
         ptsmt.close();
 
         String sql2 = "update  item \n" +
-                "set item_name=?,so_luong=?,gia_ban=?,Item_type_id = ?,trang_thai=? where barcode = ?;";
+                "set item_name=?,gia_ban=?,Item_type_id = ?,trang_thai=? where barcode = ?;";
 
 
         ptsmt = con.prepareStatement(sql2);
         ptsmt.setString(1,nTF.getText());
-        ptsmt.setInt(2,Integer.parseInt(qTF.getText()));
-        ptsmt.setDouble(3,Double.parseDouble(pTF.getText()));
-        ptsmt.setInt(4,id);
-        ptsmt.setString(5,getValueRadio);
-        ptsmt.setString(6,bTF.getText());
+        ptsmt.setDouble(2,Double.parseDouble(pTF.getText()));
+        ptsmt.setInt(3,id);
+        ptsmt.setString(4,getValueRadio);
+        ptsmt.setString(5,bTF.getText());
         ptsmt.executeUpdate();
 
 
@@ -157,7 +153,7 @@ public class updateItemFormController implements Initializable {
     void typeSaveBtnAct(ActionEvent event) throws SQLException, ClassNotFoundException {
         if(typeTextField.getText() != null && !typeTextField.getText().equals("") ){
             if(listAllItemController.item_Type.contains(typeTextField.getText())){
-                new DialogError("loai hang da co trong danh sach");
+                new DialogError("Loại hàng này đã có trong danh sách");
                 newTypeSaveBtn.setVisible(false);
                 typeTextField.setVisible(false);
                 return;
@@ -188,7 +184,7 @@ public class updateItemFormController implements Initializable {
         }else  {
             newTypeSaveBtn.setVisible(false);
             typeTextField.setVisible(false);
-            new DialogError("khong duoc bo trong vung nhap");
+            new DialogError("Không được bỏ trống vùng nhập");
         }
     }
 
@@ -198,21 +194,20 @@ public class updateItemFormController implements Initializable {
         tCB.getItems().clear();
         observableListType.clear();
         observableListType.addAll(listAllItemController.item_Type);
-        observableListType.add("them loai moi");
+        observableListType.add("thêm loại mới");
         tCB.setItems(observableListType);
         tCB.setValue(listAllItemController.item.getItem_type());
-        if(listAllItemController.item.getTrang_thai().equals("dang ban")) {
+        if(listAllItemController.item.getTrang_thai().equals("đang bán")) {
             radio_dang_ban.setSelected(true);
-            getValueRadio = "dang ban";
+            getValueRadio = "đang bán";
         }else {
             radio_dung_ban.setSelected(true);
-            getValueRadio = "dung ban";
+            getValueRadio = "dừng bán";
         }
 
 
         bTF.setText(listAllItemController.item.getBarcode());
         nTF.setText(listAllItemController.item.getItem_name());
-        qTF.setText(Integer.toString(listAllItemController.item.getSo_luong()));
         pTF.setText(Double.toString(listAllItemController.item.getGia_ban()));
 
     }

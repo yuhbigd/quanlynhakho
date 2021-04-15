@@ -123,7 +123,8 @@ public class addPhieuXuatController implements Initializable {
                     ptsmt.execute();
                 }
             new DialogError("Thành công");
-            Stage s = (Stage) addBtn.getScene().getWindow();
+                HomeController.setChildPane("Resources/FXML/listXuatHang.fxml");
+                Stage s = (Stage) addBtn.getScene().getWindow();
             s.close();
             } catch (SQLException throwables) {
             throwables.printStackTrace();

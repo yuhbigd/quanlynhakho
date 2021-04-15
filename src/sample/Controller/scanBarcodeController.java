@@ -40,6 +40,7 @@ public class scanBarcodeController implements Initializable {
     private AnchorPane pane;
     private BufferedImage grabbedImage;
     private Webcam webcam = null;
+    private Thread th;
     private boolean stopCamera;
     private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<Image>();
     public static StringProperty barcode;
@@ -76,6 +77,13 @@ public class scanBarcodeController implements Initializable {
                                         if(result.getText() != null) {
                                             barcode.setValue(result.getText());
                                             stopCamera = true;
+                                            try {
+                                                th.interrupt();
+                                                Thread.sleep(5);
+                                                webcam.close();
+                                            } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
 
                                     }catch (NotFoundException e ) {
@@ -101,13 +109,22 @@ public class scanBarcodeController implements Initializable {
                 return null;
             }
         };
-        Thread th = new Thread(task);
+        th = new Thread(task);
         th.setDaemon(true);
         th.start();
 
     }
     @FXML
     public void closeAc(ActionEvent event) {
+        if(th.isAlive()) {
+            try {
+                th.interrupt();
+                webcam.close();
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         Stage s = (Stage) close.getScene().getWindow();
         s.close();
     }

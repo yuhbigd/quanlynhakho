@@ -11,7 +11,6 @@ import java.io.IOException;
 public class View {
     public View(String url) {
         Stage stg = new Stage();
-        stg.setAlwaysOnTop(true);
 
         //Modality is so that this window must be interacted before others
         stg.initModality(Modality.APPLICATION_MODAL);

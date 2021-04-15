@@ -155,6 +155,7 @@ public class addPhieuNhapController implements Initializable {
                     ptsmt.execute();
                 }
                 new DialogError("Thành công");
+                HomeController.setChildPane("Resources/FXML/listNhapHang.fxml");
                 Stage s = (Stage) addBtn.getScene().getWindow();
                 s.close();
             } catch (SQLException throwables) {

@@ -47,6 +47,7 @@ public class updateNCCController implements Initializable {
                 throwables.printStackTrace();
             }
             finally {
+                HomeController.setChildPane("Resources/FXML/listNhaCungCap.fxml.fxml");
                 Stage s = (Stage) tenTF.getScene().getWindow();
                 s.close();
             }

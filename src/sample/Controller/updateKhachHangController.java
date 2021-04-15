@@ -46,6 +46,7 @@ public class updateKhachHangController implements Initializable {
                 throwables.printStackTrace();
             }
             finally {
+                HomeController.setChildPane("Resources/FXML/listKhach_hang.fxml.fxml");
                 Stage s = (Stage) ho_tenTF.getScene().getWindow();
                 s.close();
             }

@@ -9,7 +9,7 @@ public class Main extends Application{
     public void start(Stage myStage) throws Exception {
         SceneMap.getInstances().setStage(myStage);
         new initialization();
-        SceneMap.getInstances().setScene("Resources/FXML/Home.fxml");
+        SceneMap.getInstances().setScene("Resources/FXML/LoginFXMl.fxml");
         myStage.setResizable(false);
         myStage.show();
     }

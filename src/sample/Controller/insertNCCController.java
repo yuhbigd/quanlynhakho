@@ -55,6 +55,7 @@ public class insertNCCController implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
+                HomeController.setChildPane("Resources/FXML/listNhaCungCap.fxml");
                 Stage s = (Stage) tenTF.getScene().getWindow();
                 s.close();
             }

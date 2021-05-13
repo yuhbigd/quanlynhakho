@@ -120,7 +120,7 @@ public class nhaCungCapController extends AbstractController implements Initiali
                     updateBtn.setDisable(false);
                     congty = listItem.getSelectionModel().getSelectedItem();
                     if(event.getClickCount() > 1) {
-                        new View("/sample/Resources/FXML/updateKhachHang.fxml");
+                        new View("/sample/Resources/FXML/updateNCC.fxml");
                     }
                 }
             }

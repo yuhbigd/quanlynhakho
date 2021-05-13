@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../Roboto/Roboto-Black.ttf');
+}
+.root *{
+    -fx-font-family:'Roboto';
+    -fx-text-fill: #2A58AE;
+}
+#splitVbox *, #splitVbox {
+    -fx-background-color: #2A58AE;
+    -fx-text-fill: white;
+}
+#splitVbox>.button *,#splitVbox>.button{
+    -fx-text-fill: #7390CB;
+    -fx-fill: #7390CB;
+}
+#splitVbox .button:hover, #splitVbox .button:focused{
+    -fx-border-width: 0px 0px 0px 2px;
+    -fx-border-color: #22ABEB;
+    -fx-background-color: #1D4C9E;
+    -fx-text-fill: #f0f0f0;
+}
+#splitVbox .button:hover *,#splitVbox .button:focused *{
+    -fx-background-color: #1D4C9E;
+    -fx-text-fill: #f0f0f0;
+    -fx-fill: #f0f0f0;
+}
+
+.chart {
+    -fx-min-width: 320;
+    -fx-min-height: 250;
+    -fx-text-fill: white;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 15, 0, 0, 0);
+}
+#centerPane>*{
+    -fx-background-color: #EAEEF1;
+}
+#centerPane>*>#miniPane{
+    -fx-background-color: white;
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 15, 0, 0, 0);
+}

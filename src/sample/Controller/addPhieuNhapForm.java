@@ -50,15 +50,6 @@ public class addPhieuNhapForm implements Initializable {
             item_barcodeTF.setText(barcode.getValue());
         }
         String[] bc = item_barcodeTF.getText().split(" | ");
-        System.out.println(bc.length);
-        if(bc.length < 2) {
-            for (Item i : initialization.allItem.values()) {
-                if (i.getBarcode().equals(bc[0])) {
-                    item_barcodeTF.setText(bc[0]+" | "+i.getItem_name());
-                    break;
-                }
-            }
-        }
         if(!initialization.allItem.keySet().contains(item_barcodeTF.getText())){
             new DialogError("Sản phẩm không tồn tại hãy thêm sản phẩm mới trước khi nhập");
         }else if(item_barcodeTF.getText().length()<1||so_luongTF.getText().length()<1){
@@ -68,8 +59,8 @@ public class addPhieuNhapForm implements Initializable {
         }else{
             int sl = initialization.allItem.get(item_barcodeTF.getText()).getSo_luong();
                 gia_san_pham.setText(Double.toString(initialization.allItem.get(item_barcodeTF.getText()).getGia_nhap()));
-                if(addPhieuNhapController.data.keySet().contains(item_barcodeTF.getText())){
-                    int so_luong = addPhieuNhapController.data.get(item_barcodeTF.getText()).getSo_luong();
+                if(addPhieuNhapController.data.keySet().contains(bc[0])){
+                    int so_luong = addPhieuNhapController.data.get(bc[0]).getSo_luong();
                     so_luong += Integer.parseInt(so_luongTF.getText());
                     addPhieuNhapController.data.get(bc[0]).setSo_luong(so_luong);
                 }else {
@@ -77,7 +68,6 @@ public class addPhieuNhapForm implements Initializable {
                 }
                 addPhieuNhapController.setDataForList();
                 initialization.allItem.get(item_barcodeTF.getText()).setSo_luong(sl+Integer.parseInt(so_luongTF.getText()));
-
         }
     }
 

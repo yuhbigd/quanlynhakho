@@ -138,7 +138,7 @@ public class DashboardController extends AbstractController implements Initializ
         }
         circleChart.setData(cChartData);
         circleChart.setStartAngle(90);
-
+        circleChart.setLabelsVisible(false);
     }
 
     public void counting() throws SQLException {

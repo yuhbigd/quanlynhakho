@@ -117,8 +117,8 @@ public class addPhieuNhapController implements Initializable {
 
     @FXML
     void deleteAction(ActionEvent event) {
-        int sl = initialization.allItem.get(temp.getItem_barcode()).getSo_luong();
-        initialization.allItem.get(temp.getItem_barcode()).setSo_luong(sl - temp.getSo_luong());
+        int sl = initialization.allItem.get(temp.getItem_barcode()+" | "+initialization.subAllItem.get(temp.getItem_barcode())).getSo_luong();
+        initialization.allItem.get(temp.getItem_barcode()+" | "+initialization.subAllItem.get(temp.getItem_barcode())).setSo_luong(sl - temp.getSo_luong());
         data.remove(temp.getItem_barcode());
         setDataForList();
     }

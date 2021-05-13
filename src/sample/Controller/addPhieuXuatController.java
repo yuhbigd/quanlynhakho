@@ -85,8 +85,8 @@ public class addPhieuXuatController implements Initializable {
 
     @FXML
     void deleteAction(ActionEvent event) {
-      int sl = initialization.allItem.get(temp.getItem_barcode()).getSo_luong();
-      initialization.allItem.get(temp.getItem_barcode()).setSo_luong(sl+ temp.getSo_luong());
+      int sl = initialization.allItem.get(temp.getItem_barcode()+" | "+initialization.subAllItem.get(temp.getItem_barcode())).getSo_luong();
+      initialization.allItem.get(temp.getItem_barcode()+" | "+initialization.subAllItem.get(temp.getItem_barcode())).setSo_luong(sl+ temp.getSo_luong());
       data.remove(temp.getItem_barcode());
       setDataForList();
     }
@@ -125,7 +125,7 @@ public class addPhieuXuatController implements Initializable {
             new DialogError("Thành công");
                 HomeController.setChildPane("Resources/FXML/listXuatHang.fxml");
                 Stage s = (Stage) addBtn.getScene().getWindow();
-            s.close();
+                s.close();
             } catch (SQLException throwables) {
             throwables.printStackTrace();
             }

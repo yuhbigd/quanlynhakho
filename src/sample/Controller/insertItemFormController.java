@@ -113,6 +113,7 @@ public class insertItemFormController implements Initializable {
         ptsmt.execute();
         ptsmt.close();
         initialization.allItem.put(bTF.getText()+" | "+nTF.getText(),new Item(bTF.getText(),nTF.getText(),0,Double.parseDouble(gia_nhapTF.getText()),tCB.getValue(),getValueRadio,Double.parseDouble(pTF.getText())));
+        initialization.subAllItem.put(bTF.getText(),nTF.getText());
         Stage s =  (Stage)saveBtn.getScene().getWindow();
         new DialogError("Nhập loại hàng mới thành công");
         s.close();

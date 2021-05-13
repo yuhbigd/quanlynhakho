@@ -110,8 +110,8 @@ public class HomeController implements Initializable {
             e.printStackTrace();
         }
         childPane = abs.getPane();
-        childPane.setPrefHeight(mainPane.getPrefHeight());
-        childPane.setPrefWidth(mainPane.getPrefWidth());
+        childPane.setMaxHeight(mainPane.getPrefHeight());
+        childPane.setMaxWidth(mainPane.getPrefWidth());
 
         mainPane.getChildren().clear();
         mainPane.getChildren().add(childPane);

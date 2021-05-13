@@ -50,15 +50,14 @@ public class addPhieuXuatForm implements Initializable {
             item_barcodeTF.setText(barcode.getValue());
         }
         String[] bc = item_barcodeTF.getText().split(" | ");
-        System.out.println(bc.length);
-        if(bc.length < 2) {
-            for (Item i : initialization.allItem.values()) {
-                if (i.getBarcode().equals(bc[0])) {
-                    item_barcodeTF.setText(bc[0]+" | "+i.getItem_name());
-                    break;
-                }
-            }
-        }
+//        if(bc.length < 2) {
+//            for (Item i : initialization.allItem.values()) {
+//                if (i.getBarcode().equals(bc[0])) {
+//                    item_barcodeTF.setText(bc[0]+" | "+i.getItem_name());
+//                    break;
+//                }
+//            }
+//        }
         if(!initialization.allItem.keySet().contains(item_barcodeTF.getText())){
             new DialogError("Sản phẩm không tồn tại");
         }else if(item_barcodeTF.getText().length()<1||so_luongTF.getText().length()<1){
@@ -71,8 +70,8 @@ public class addPhieuXuatForm implements Initializable {
                 new DialogError("Không đủ số hàng để xuất");
             }else{
                 gia_san_pham.setText(Double.toString(initialization.allItem.get(item_barcodeTF.getText()).getGia_ban()));
-                if(addPhieuXuatController.data.keySet().contains(item_barcodeTF.getText())){
-                    int so_luong = addPhieuXuatController.data.get(item_barcodeTF.getText()).getSo_luong();
+                if(addPhieuXuatController.data.keySet().contains(bc[0])){
+                    int so_luong = addPhieuXuatController.data.get(bc[0]).getSo_luong();
                     so_luong += Integer.parseInt(so_luongTF.getText());
                     addPhieuXuatController.data.get(bc[0]).setSo_luong(so_luong);
                 }else {

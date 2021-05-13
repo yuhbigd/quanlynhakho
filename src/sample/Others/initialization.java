@@ -12,6 +12,7 @@ import java.util.Map;
 
 public class initialization {
     public static Map<String,Item> allItem;
+    public static Map<String,String> subAllItem;
     public static Map<String,phieuXuat> allPhieuXuat;
     public static Map<String,phieuNhap> allPhieuNhap;
     public static Connection con;
@@ -40,6 +41,7 @@ public class initialization {
         idAndCongty = new ArrayList<>();
         allPhieuNhap = new HashMap<>();
         itemType = new ArrayList<>();
+        subAllItem = new HashMap<>();
         setDataForItem();
         setDataForPhieuXuat();
         setDataForKhachHang();
@@ -57,10 +59,12 @@ public class initialization {
                 ResultSet rs = ptsmt.executeQuery();
                 allItem.clear();
                 itemType.clear();
+                subAllItem.clear();
                 while (rs.next()) {
                     String bc = rs.getString("barcode");
                     String type = rs.getString("loai_hang");
                     allItem.put(bc+" | "+rs.getString("item_name"),new Item(bc, rs.getString("item_name"), rs.getInt("so_luong"), rs.getDouble("gia_ban"), type, rs.getString("trang_thai"), rs.getDouble("gia_nhap")));
+                    subAllItem.put(bc,rs.getString("item_name"));
                     if(!itemType.contains(type)){
                         itemType.add(type);
                     }

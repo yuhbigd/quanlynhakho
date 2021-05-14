@@ -18,6 +18,7 @@ public class View {
 
             Parent root = FXMLLoader.load(getClass().getResource(url));
             Scene s = new Scene(root);
+            s.getStylesheets().add("/sample/Resources/CSS/View.css");
             stg.setScene(s);
             stg.show();
         } catch (IOException e) {

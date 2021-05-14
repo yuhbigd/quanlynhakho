@@ -123,7 +123,7 @@ public class listAllItemController extends AbstractController implements Initial
                     updateBtn.setDisable(false);
                     item = listItem.getSelectionModel().getSelectedItem();
                     if(event.getClickCount() > 1) {
-                        new View("/sample/Resources/FXML/updateItemForm.fxml");
+                        new View("/sample/Resources/FXML/lichSuNhapHang.fxml");
                     }
                 }
             }

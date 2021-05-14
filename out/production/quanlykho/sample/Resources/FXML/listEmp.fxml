@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.listEmpController">
+<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="688.0" stylesheets="@../CSS/inventory.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.listEmpController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="688.0">
             <center>
@@ -20,13 +20,13 @@
                 </TableView>
             </center>
             <top>
-                <AnchorPane prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TextField fx:id="search_tf" layoutX="432.0" layoutY="4.0" prefHeight="25.0" prefWidth="185.0" promptText="Tìm bằng tên hoặc username" />
-                        <Button fx:id="searchBtn" layoutX="624.0" layoutY="4.0" mnemonicParsing="false" onAction="#searchAction" text="search" />
-                        <Button fx:id="addBtn" layoutX="22.0" layoutY="4.0" mnemonicParsing="false" onAction="#addingAction" text="Thêm" />
-                        <Button fx:id="updateBtn" layoutX="122.0" layoutY="3.0" mnemonicParsing="false" onAction="#updatingAction" prefHeight="25.0" prefWidth="56.0" text="Sửa" />
-                  <Button fx:id="deleteBtn" layoutX="233.0" layoutY="4.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="25.0" prefWidth="59.0" text="Xoá" />
+                        <TextField fx:id="search_tf" layoutX="432.0" layoutY="7.0" prefHeight="25.0" prefWidth="185.0" promptText="Tìm bằng tên hoặc username" />
+                        <Button fx:id="searchBtn" layoutX="624.0" layoutY="7.0" mnemonicParsing="false" onAction="#searchAction" text="search" />
+                        <Button fx:id="addBtn" layoutX="22.0" layoutY="7.0" mnemonicParsing="false" onAction="#addingAction" text="Thêm" />
+                        <Button fx:id="updateBtn" layoutX="122.0" layoutY="7.0" mnemonicParsing="false" onAction="#updatingAction" prefHeight="25.0" prefWidth="56.0" text="Sửa" />
+                  <Button fx:id="deleteBtn" layoutX="233.0" layoutY="7.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="25.0" prefWidth="59.0" text="Xoá" />
                     </children>
                 </AnchorPane>
             </top>

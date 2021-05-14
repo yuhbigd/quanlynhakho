@@ -6,12 +6,13 @@
 
 <AnchorPane prefHeight="602.0" prefWidth="503.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.lichSuNhapHangCont">
     <children>
-        <TableView fx:id="table" layoutY="-2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="604.0" prefWidth="507.0">
+        <TableView fx:id="table" layoutY="-2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="604.0" prefWidth="604.0">
             <columns>
-                <TableColumn fx:id="barcode" text="Barcode" />
-                <TableColumn fx:id="item_name" prefWidth="106.0" text="Tên sản phẩm" />
-                <TableColumn fx:id="quantity" prefWidth="101.0" text="Số lượng" />
-            <TableColumn fx:id="name" prefWidth="103.0" text="Người nhập" />
+            <TableColumn fx:id="maDonNhap" prefWidth="97.0" text="Mã đơn nhập" />
+                <TableColumn fx:id="barcode" prefWidth="97.0" text="Barcode" />
+                <TableColumn fx:id="item_name" prefWidth="89.0" text="Tên sản phẩm" />
+                <TableColumn fx:id="quantity" prefWidth="84.0" text="Số lượng" />
+            <TableColumn fx:id="name" prefWidth="120.0" text="Người nhập" />
             <TableColumn fx:id="time" prefWidth="116.0" text="Thời gian nhập" />
             </columns>
         </TableView>

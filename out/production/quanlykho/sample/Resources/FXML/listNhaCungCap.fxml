@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.nhaCungCapController">
+<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="688.0" stylesheets="@../CSS/inventory.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.nhaCungCapController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="688.0">
             <center>
@@ -19,11 +19,11 @@
                 </TableView>
             </center>
             <top>
-                <AnchorPane prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                <AnchorPane prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TextField fx:id="search_tf" layoutX="432.0" layoutY="4.0" prefHeight="25.0" prefWidth="185.0" promptText="tìm bằng id hoặc tên" />
-                        <Button fx:id="addBtn" layoutX="21.0" layoutY="2.0" mnemonicParsing="false" onAction="#addingAction" text="Thêm" />
-                        <Button fx:id="updateBtn" layoutX="122.0" layoutY="3.0" mnemonicParsing="false" onAction="#updatingAction" prefHeight="25.0" prefWidth="56.0" text="Sửa" />
+                        <TextField fx:id="search_tf" layoutX="432.0" layoutY="7.0" prefHeight="25.0" prefWidth="185.0" promptText="tìm bằng id hoặc tên" />
+                        <Button fx:id="addBtn" layoutX="21.0" layoutY="7.0" mnemonicParsing="false" onAction="#addingAction" text="Thêm" />
+                        <Button fx:id="updateBtn" layoutX="122.0" layoutY="7.0" mnemonicParsing="false" onAction="#updatingAction" prefHeight="25.0" prefWidth="56.0" text="Sửa" />
                     </children>
                 </AnchorPane>
             </top>

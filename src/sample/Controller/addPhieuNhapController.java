@@ -16,7 +16,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
 import sample.ConnectionClass;
-import sample.Others.*;
+import sample.Others.ChiTietNhapHang;
+import sample.Others.DialogError;
+import sample.Others.View;
+import sample.Others.initialization;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -28,67 +31,57 @@ import java.util.ResourceBundle;
 
 public class addPhieuNhapController implements Initializable {
 
+    public static Map<String, ChiTietNhapHang> data = new HashMap<>();
+    public static ObservableList<ChiTietNhapHang> masterData = FXCollections.observableArrayList();
+    public static ChiTietNhapHang temp;
+    public static String maNhap;
+    public static String ma_NCC;
     @FXML
     private TextField search_tf;
-
     @FXML
     private Button addBtn;
-
     @FXML
     private Button deleteBtn;
-
     @FXML
     private Button saveBtn;
-
     @FXML
     private Button addItem;
-
     @FXML
     private TextField ma_Tf;
-
     @FXML
     private TextField ma_cong_ty;
-
     @FXML
     private TableView<ChiTietNhapHang> listAll;
-
     @FXML
     private TableColumn<ChiTietNhapHang, String> ma_nhap_hang;
-
     @FXML
     private TableColumn<ChiTietNhapHang, String> item_barcode;
-
     @FXML
     private TableColumn<ChiTietNhapHang, Integer> so_luong_san_pham;
-
     @FXML
     private TableColumn<ChiTietNhapHang, Double> gia_san_pham;
-
-    public static Map<String, ChiTietNhapHang> data = new HashMap<>();
-
-    public static ObservableList<ChiTietNhapHang> masterData = FXCollections.observableArrayList();
-
-
     private Connection con;
 
-    public static ChiTietNhapHang temp;
-
-    public static String maNhap;
-
-    public static String ma_NCC;
+    public static void setDataForList() {
+        try {
+            masterData.clear();
+            masterData.addAll(data.values());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void OKAction(ActionEvent event) {
-        if(ma_Tf.getText().trim().length()<1||ma_cong_ty.getText().trim().length()<1){
+        if (ma_Tf.getText().trim().length() < 1 || ma_cong_ty.getText().trim().length() < 1) {
             new DialogError("Không thể để trống mã xuất hàng");
-        }
-        else if(initialization.allPhieuNhap.keySet().contains(ma_Tf.getText())){
+        } else if (initialization.allPhieuNhap.containsKey(ma_Tf.getText())) {
             new DialogError("Mã xuất hàng không thể trùng");
-        }else{
+        } else {
             String[] idK = ma_cong_ty.getText().split(" | ");
-            for(String id : initialization.idAndCongty){
-                String [] idAr = id.split(" | ");
-                if(idAr[0].equals(idK[0])){
+            for (String id : initialization.idAndCongty) {
+                String[] idAr = id.split(" | ");
+                if (idAr[0].equals(idK[0])) {
                     maNhap = ma_Tf.getText();
                     setDataForList();
                     listAll.setVisible(true);
@@ -117,41 +110,40 @@ public class addPhieuNhapController implements Initializable {
 
     @FXML
     void deleteAction(ActionEvent event) {
-        int sl = initialization.allItem.get(temp.getItem_barcode()+" | "+initialization.subAllItem.get(temp.getItem_barcode())).getSo_luong();
-        initialization.allItem.get(temp.getItem_barcode()+" | "+initialization.subAllItem.get(temp.getItem_barcode())).setSo_luong(sl - temp.getSo_luong());
+        int sl = initialization.allItem.get(temp.getItem_barcode() + " | " + initialization.subAllItem.get(temp.getItem_barcode())).getSo_luong();
+        initialization.allItem.get(temp.getItem_barcode() + " | " + initialization.subAllItem.get(temp.getItem_barcode())).setSo_luong(sl - temp.getSo_luong());
         data.remove(temp.getItem_barcode());
         setDataForList();
     }
 
     @FXML
     void save(ActionEvent event) {
-        if(data.isEmpty()) {
+        if (data.isEmpty()) {
             new DialogError("Bạn chưa nhập sản phẩm vào phiếu");
-        }
-        else
+        } else
             try {
                 String sql = "insert into nhap_hang values(?,now(),?,?);";
                 PreparedStatement ptsmt = con.prepareStatement(sql);
-                ptsmt.setString(1,maNhap);
-                ptsmt.setString(2,ma_NCC);
-                ptsmt.setString(3,LoginController.loggerUsername);
+                ptsmt.setString(1, maNhap);
+                ptsmt.setString(2, ma_NCC);
+                ptsmt.setString(3, LoginController.loggerUsername);
                 ptsmt.execute();
                 ptsmt.close();
                 String sql1 = "insert into chi_tiet_lan_nhap values (?,?,?,?);";
                 ptsmt = con.prepareStatement(sql1);
-                for(ChiTietNhapHang i : data.values()) {
-                    ptsmt.setString(2,i.getItem_barcode());
-                    ptsmt.setString(1,i.getMa_nhap_hang());
-                    ptsmt.setInt(3,i.getSo_luong());
-                    ptsmt.setDouble(4,i.getGia_san_pham());
+                for (ChiTietNhapHang i : data.values()) {
+                    ptsmt.setString(2, i.getItem_barcode());
+                    ptsmt.setString(1, i.getMa_nhap_hang());
+                    ptsmt.setInt(3, i.getSo_luong());
+                    ptsmt.setDouble(4, i.getGia_san_pham());
                     ptsmt.execute();
                 }
                 ptsmt.close();
                 String sql2 = "update item set so_luong = so_luong + ? where barcode = ?;";
                 ptsmt = con.prepareStatement(sql2);
-                for(ChiTietNhapHang i : data.values()) {
-                    ptsmt.setString(2,i.getItem_barcode());
-                    ptsmt.setInt(1,i.getSo_luong());
+                for (ChiTietNhapHang i : data.values()) {
+                    ptsmt.setString(2, i.getItem_barcode());
+                    ptsmt.setInt(1, i.getSo_luong());
                     ptsmt.execute();
                 }
                 new DialogError("Thành công");
@@ -178,7 +170,7 @@ public class addPhieuNhapController implements Initializable {
         gia_san_pham.setCellValueFactory(new PropertyValueFactory<>("gia_san_pham"));
 
 
-        FilteredList<ChiTietNhapHang> nhapFilteredList = new FilteredList<ChiTietNhapHang>(masterData, p-> true);
+        FilteredList<ChiTietNhapHang> nhapFilteredList = new FilteredList<ChiTietNhapHang>(masterData, p -> true);
 
         search_tf.textProperty().addListener((observable, oldValue, newValue) -> {
             nhapFilteredList.setPredicate(phieuNhap -> {
@@ -188,25 +180,22 @@ public class addPhieuNhapController implements Initializable {
                 }
 
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (phieuNhap.getItem_barcode().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
+                return phieuNhap.getItem_barcode().toLowerCase().contains(lowerCaseFilter);
             });
         });
         SortedList<ChiTietNhapHang> chiTietNhapHangSortedList = new SortedList<>(nhapFilteredList);
         chiTietNhapHangSortedList.comparatorProperty().bind(listAll.comparatorProperty());
         listAll.setItems(chiTietNhapHangSortedList);
-        listAll.setOnMouseClicked((MouseEvent event)-> {
-            if(event.getClickCount() > 0) {
-                if(listAll.getSelectionModel().getSelectedItem() != null) {
+        listAll.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 0) {
+                if (listAll.getSelectionModel().getSelectedItem() != null) {
                     deleteBtn.setDisable(false);
                     temp = listAll.getSelectionModel().getSelectedItem();
                 }
             }
         });
         TextFields.bindAutoCompletion(ma_Tf, initialization.allPhieuNhap.keySet());
-        TextFields.bindAutoCompletion(ma_cong_ty,initialization.idAndCongty);
+        TextFields.bindAutoCompletion(ma_cong_ty, initialization.idAndCongty);
         data.clear();
         try {
             con = ConnectionClass.getInstances().getConnection();
@@ -216,13 +205,5 @@ public class addPhieuNhapController implements Initializable {
             e.printStackTrace();
         }
         setDataForList();
-    }
-    public static void setDataForList(){
-        try {
-            masterData.clear();
-            masterData.addAll(data.values());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

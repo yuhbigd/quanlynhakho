@@ -11,18 +11,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
-import sample.Others.*;
+import sample.Others.ChiTietXuatHang;
+import sample.Others.DialogError;
+import sample.Others.View;
+import sample.Others.initialization;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class addPhieuXuatForm implements Initializable {
 
+    public StringProperty barcode;
     @FXML
     private TextField item_barcodeTF;
-
-    public StringProperty barcode;
-
     @FXML
     private TextField so_luongTF;
 
@@ -37,16 +38,17 @@ public class addPhieuXuatForm implements Initializable {
     }
 
     @FXML
-    void getBarcode(ActionEvent event){
+    void getBarcode(ActionEvent event) {
         scanBarcodeController.barcode = new SimpleStringProperty();
         barcode = new SimpleStringProperty();
         barcode.bindBidirectional(scanBarcodeController.barcode);
         item_barcodeTF.textProperty().bindBidirectional(barcode);
         new View("/sample/Resources/FXML/scanBarcode.fxml");
     }
+
     @FXML
     void saveAction(ActionEvent event) {
-        if(barcode!=null&&barcode.getValue().length()>1){
+        if (barcode != null && barcode.getValue().length() > 1) {
             item_barcodeTF.setText(barcode.getValue());
         }
         String[] bc = item_barcodeTF.getText().split(" | ");
@@ -58,27 +60,27 @@ public class addPhieuXuatForm implements Initializable {
 //                }
 //            }
 //        }
-        if(!initialization.allItem.keySet().contains(item_barcodeTF.getText())){
+        if (!initialization.allItem.containsKey(item_barcodeTF.getText())) {
             new DialogError("Sản phẩm không tồn tại");
-        }else if(item_barcodeTF.getText().length()<1||so_luongTF.getText().length()<1){
+        } else if (item_barcodeTF.getText().length() < 1 || so_luongTF.getText().length() < 1) {
             new DialogError("Không thể bỏ trống vùng nhập");
-        }else if(Integer.parseInt(so_luongTF.getText())<=0){
+        } else if (Integer.parseInt(so_luongTF.getText()) <= 0) {
             new DialogError("Số hàng xuất ra phải lớn hơn 0");
-        }else{
+        } else {
             int sl = initialization.allItem.get(item_barcodeTF.getText()).getSo_luong();
-            if(Integer.parseInt(so_luongTF.getText()) > sl){
+            if (Integer.parseInt(so_luongTF.getText()) > sl) {
                 new DialogError("Không đủ số hàng để xuất");
-            }else{
+            } else {
                 gia_san_pham.setText(Double.toString(initialization.allItem.get(item_barcodeTF.getText()).getGia_ban()));
-                if(addPhieuXuatController.data.keySet().contains(bc[0])){
+                if (addPhieuXuatController.data.containsKey(bc[0])) {
                     int so_luong = addPhieuXuatController.data.get(bc[0]).getSo_luong();
                     so_luong += Integer.parseInt(so_luongTF.getText());
                     addPhieuXuatController.data.get(bc[0]).setSo_luong(so_luong);
-                }else {
-                    addPhieuXuatController.data.put(bc[0],new ChiTietXuatHang(addPhieuXuatController.ma_xuat,bc[0],initialization.allItem.get(item_barcodeTF.getText()).getGia_ban(),Integer.parseInt(so_luongTF.getText())));
+                } else {
+                    addPhieuXuatController.data.put(bc[0], new ChiTietXuatHang(addPhieuXuatController.ma_xuat, bc[0], initialization.allItem.get(item_barcodeTF.getText()).getGia_ban(), Integer.parseInt(so_luongTF.getText())));
                 }
                 addPhieuXuatController.setDataForList();
-                initialization.allItem.get(item_barcodeTF.getText()).setSo_luong(sl-Integer.parseInt(so_luongTF.getText()));
+                initialization.allItem.get(item_barcodeTF.getText()).setSo_luong(sl - Integer.parseInt(so_luongTF.getText()));
             }
         }
     }

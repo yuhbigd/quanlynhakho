@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.ConnectionClass;
-import sample.Others.Congty;
 import sample.Others.DialogError;
 
 import java.net.URL;
@@ -32,21 +31,20 @@ public class updateNCCController implements Initializable {
 
     @FXML
     void saveAction(ActionEvent event) {
-        if(tenTF.getText().length()<1||dia_chiTF.getText().length()<1||sdtTf.getText().length()<1) {
+        if (tenTF.getText().length() < 1 || dia_chiTF.getText().length() < 1 || sdtTf.getText().length() < 1) {
             new DialogError("Không thể để trống các vùng nhập");
-        }else{
+        } else {
             String sql = "update ben_ban_hang_cho_kho set ten_cong_ty = ?,dia_chi_cong_ty=?,so_dien_thoai=? where id_cong_ty =?;";
             try {
                 PreparedStatement pstmt = con.prepareStatement(sql);
-                pstmt.setString(1,tenTF.getText());
-                pstmt.setString(2,dia_chiTF.getText());
-                pstmt.setString(3,sdtTf.getText());
-                pstmt.setString(4,nhaCungCapController.congty.getMa_cong_ty());
+                pstmt.setString(1, tenTF.getText());
+                pstmt.setString(2, dia_chiTF.getText());
+                pstmt.setString(3, sdtTf.getText());
+                pstmt.setString(4, nhaCungCapController.congty.getMa_cong_ty());
                 pstmt.execute();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-            }
-            finally {
+            } finally {
                 HomeController.setChildPane("Resources/FXML/listNhaCungCap.fxml.fxml");
                 Stage s = (Stage) tenTF.getScene().getWindow();
                 s.close();

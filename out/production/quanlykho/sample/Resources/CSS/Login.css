@@ -1,20 +1,24 @@
-.root{
+.root {
     -fx-background-color: #FFDDAF;
 }
-.label{
+
+.label {
     -fx-text-fill: #35596A;
     -fx-font-weight: bold;
 }
-.text-field{
+
+.text-field {
     -fx-background-color: transparent;
     -fx-border-color: #F59876;
-    -fx-border-width:0px 0px 2px 0px ;
+    -fx-border-width: 0px 0px 2px 0px;
 }
-.button{
+
+.button {
     -fx-background-color: #F59876;
 }
-.button:hover{
-    -fx-effect: innershadow( gaussian , pink , 10,0.15,0,0 );
+
+.button:hover {
+    -fx-effect: innershadow(gaussian, pink, 10, 0.15, 0, 0);
     -fx-cursor: hand;
 }
 

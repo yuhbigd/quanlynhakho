@@ -6,22 +6,21 @@ import java.sql.SQLException;
 
 public class ConnectionClass {
 
-    private static ConnectionClass instance=null;
-    private Connection con;
+    private static ConnectionClass instance = null;
+    private final Connection con;
 
-
-    public static ConnectionClass getInstances() throws SQLException, ClassNotFoundException {
-        if(instance==null) {
-            instance=new ConnectionClass();
-        }
-        return instance;
-    }
 
     private ConnectionClass() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "huy036837299");
     }
 
+    public static ConnectionClass getInstances() throws SQLException, ClassNotFoundException {
+        if (instance == null) {
+            instance = new ConnectionClass();
+        }
+        return instance;
+    }
 
     public Connection getConnection() throws SQLException, ClassNotFoundException {
         return getInstances().con;

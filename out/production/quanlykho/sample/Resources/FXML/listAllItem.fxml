@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-
-<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="688.0" stylesheets="@../CSS/inventory.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.listAllItemController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="600.0" prefWidth="688.0"
+            stylesheets="@../CSS/inventory.css" xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="sample.Controller.listAllItemController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="688.0">
             <center>
-                <TableView fx:id="listItem" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="570.0" prefWidth="676.0" BorderPane.alignment="CENTER">
+                <TableView fx:id="listItem" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                           prefHeight="570.0" prefWidth="676.0" BorderPane.alignment="CENTER">
                     <columns>
-                        <TableColumn fx:id="barcode" prefWidth="114.0" text="Barcode" />
-                        <TableColumn fx:id="item_name" prefWidth="114.0" text="Tên Hàng" />
-                        <TableColumn fx:id="quantity" prefWidth="82.0" text="Số Lượng" />
-                        <TableColumn fx:id="price" prefWidth="83.0" text="Giá Bán" />
-                        <TableColumn fx:id="type" prefWidth="87.0" text="Loại Hàng" />
-                        <TableColumn fx:id="status" prefWidth="88.0" text="Trạng Thái" />
-                        <TableColumn fx:id="gia_nhapCL" prefWidth="117.0" text="Giá nhập" />
+                        <TableColumn fx:id="barcode" prefWidth="114.0" text="Barcode"/>
+                        <TableColumn fx:id="item_name" prefWidth="114.0" text="Tên Hàng"/>
+                        <TableColumn fx:id="quantity" prefWidth="82.0" text="Số Lượng"/>
+                        <TableColumn fx:id="price" prefWidth="83.0" text="Giá Bán"/>
+                        <TableColumn fx:id="type" prefWidth="87.0" text="Loại Hàng"/>
+                        <TableColumn fx:id="status" prefWidth="88.0" text="Trạng Thái"/>
+                        <TableColumn fx:id="gia_nhapCL" prefWidth="117.0" text="Giá nhập"/>
                     </columns>
                 </TableView>
             </center>
             <top>
                 <AnchorPane prefHeight="40.0" prefWidth="688.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TextField fx:id="search_tf" layoutX="437.0" layoutY="7.0" prefHeight="25.0" prefWidth="185.0" promptText="tìm bằng barcode hoặc tên" />
-                        <Button fx:id="searchBtn" layoutX="622.0" layoutY="7.0" mnemonicParsing="false" onAction="#searchAction" text="search" />
-                        <Button fx:id="addBtn" layoutX="21.0" layoutY="7.0" mnemonicParsing="false" onAction="#addingAction" text="Thêm" />
-                        <Button fx:id="updateBtn" layoutX="118.0" layoutY="7.0" mnemonicParsing="false" onAction="#updatingAction" prefHeight="25.0" prefWidth="56.0" text="Sửa" />
+                        <TextField fx:id="search_tf" layoutX="437.0" layoutY="7.0" prefHeight="25.0" prefWidth="185.0"
+                                   promptText="tìm bằng barcode hoặc tên"/>
+                        <Button fx:id="searchBtn" layoutX="622.0" layoutY="7.0" mnemonicParsing="false"
+                                onAction="#searchAction" text="search"/>
+                        <Button fx:id="addBtn" layoutX="21.0" layoutY="7.0" mnemonicParsing="false"
+                                onAction="#addingAction" text="Thêm"/>
+                        <Button fx:id="updateBtn" layoutX="118.0" layoutY="7.0" mnemonicParsing="false"
+                                onAction="#updatingAction" prefHeight="25.0" prefWidth="56.0" text="Sửa"/>
                     </children>
                 </AnchorPane>
             </top>

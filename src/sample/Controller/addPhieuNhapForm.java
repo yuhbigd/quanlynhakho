@@ -11,21 +11,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
-import sample.Others.*;
+import sample.Others.ChiTietNhapHang;
+import sample.Others.DialogError;
+import sample.Others.View;
+import sample.Others.initialization;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class addPhieuNhapForm implements Initializable {
 
+    public StringProperty barcode;
     @FXML
     private TextField item_barcodeTF;
-
     @FXML
     private TextField so_luongTF;
-
-    public StringProperty barcode;
-
     @FXML
     private Label gia_san_pham;
 
@@ -46,28 +46,28 @@ public class addPhieuNhapForm implements Initializable {
 
     @FXML
     void saveAction(ActionEvent event) {
-        if(barcode!=null&&barcode.getValue().length()>1){
+        if (barcode != null && barcode.getValue().length() > 1) {
             item_barcodeTF.setText(barcode.getValue());
         }
         String[] bc = item_barcodeTF.getText().split(" | ");
-        if(!initialization.allItem.keySet().contains(item_barcodeTF.getText())){
+        if (!initialization.allItem.containsKey(item_barcodeTF.getText())) {
             new DialogError("Sản phẩm không tồn tại hãy thêm sản phẩm mới trước khi nhập");
-        }else if(item_barcodeTF.getText().length()<1||so_luongTF.getText().length()<1){
+        } else if (item_barcodeTF.getText().length() < 1 || so_luongTF.getText().length() < 1) {
             new DialogError("Không thể bỏ trống vùng nhập");
-        }else if(Integer.parseInt(so_luongTF.getText())<=0){
+        } else if (Integer.parseInt(so_luongTF.getText()) <= 0) {
             new DialogError("Số hàng nhập vào phải lớn hơn 0");
-        }else{
+        } else {
             int sl = initialization.allItem.get(item_barcodeTF.getText()).getSo_luong();
-                gia_san_pham.setText(Double.toString(initialization.allItem.get(item_barcodeTF.getText()).getGia_nhap()));
-                if(addPhieuNhapController.data.keySet().contains(bc[0])){
-                    int so_luong = addPhieuNhapController.data.get(bc[0]).getSo_luong();
-                    so_luong += Integer.parseInt(so_luongTF.getText());
-                    addPhieuNhapController.data.get(bc[0]).setSo_luong(so_luong);
-                }else {
-                    addPhieuNhapController.data.put(bc[0],new ChiTietNhapHang(addPhieuNhapController.maNhap,bc[0],initialization.allItem.get(item_barcodeTF.getText()).getGia_nhap(),Integer.parseInt(so_luongTF.getText())));
-                }
-                addPhieuNhapController.setDataForList();
-                initialization.allItem.get(item_barcodeTF.getText()).setSo_luong(sl+Integer.parseInt(so_luongTF.getText()));
+            gia_san_pham.setText(Double.toString(initialization.allItem.get(item_barcodeTF.getText()).getGia_nhap()));
+            if (addPhieuNhapController.data.containsKey(bc[0])) {
+                int so_luong = addPhieuNhapController.data.get(bc[0]).getSo_luong();
+                so_luong += Integer.parseInt(so_luongTF.getText());
+                addPhieuNhapController.data.get(bc[0]).setSo_luong(so_luong);
+            } else {
+                addPhieuNhapController.data.put(bc[0], new ChiTietNhapHang(addPhieuNhapController.maNhap, bc[0], initialization.allItem.get(item_barcodeTF.getText()).getGia_nhap(), Integer.parseInt(so_luongTF.getText())));
+            }
+            addPhieuNhapController.setDataForList();
+            initialization.allItem.get(item_barcodeTF.getText()).setSo_luong(sl + Integer.parseInt(so_luongTF.getText()));
         }
     }
 

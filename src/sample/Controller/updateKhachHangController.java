@@ -31,21 +31,20 @@ public class updateKhachHangController implements Initializable {
 
     @FXML
     void okBtn(ActionEvent event) {
-        if(ho_tenTF.getText().length()<1||dia_chiTF.getText().length()<1||sdtTf.getText().length()<1) {
+        if (ho_tenTF.getText().length() < 1 || dia_chiTF.getText().length() < 1 || sdtTf.getText().length() < 1) {
             new DialogError("Không thể để trống các vùng nhập");
-        }else{
+        } else {
             String sql = "update khach_hang set ten_khach_hang = ?,dia_chi=?,so_dien_thoai=? where ma_khach_hang =?;";
             try {
                 PreparedStatement pstmt = con.prepareStatement(sql);
-                pstmt.setString(1,ho_tenTF.getText());
-                pstmt.setString(2,dia_chiTF.getText());
-                pstmt.setString(3,sdtTf.getText());
-                pstmt.setString(4,KhachhangController.khachhang.getMa_khach());
+                pstmt.setString(1, ho_tenTF.getText());
+                pstmt.setString(2, dia_chiTF.getText());
+                pstmt.setString(3, sdtTf.getText());
+                pstmt.setString(4, KhachhangController.khachhang.getMa_khach());
                 pstmt.execute();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-            }
-            finally {
+            } finally {
                 HomeController.setChildPane("Resources/FXML/listKhach_hang.fxml.fxml");
                 Stage s = (Stage) ho_tenTF.getScene().getWindow();
                 s.close();

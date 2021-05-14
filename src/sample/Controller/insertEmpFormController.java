@@ -19,65 +19,56 @@ import java.util.ResourceBundle;
 
 public class insertEmpFormController implements Initializable {
 
+    private final ObservableList<String> observableList = FXCollections.observableArrayList();
     @FXML
     private TextField ho_ten_textF;
-
     @FXML
     private TextField user_textF;
-
     @FXML
     private TextField pass_textF;
-
     @FXML
     private ComboBox<String> chuc_Vu_ComboBox;
-
     @FXML
     private RadioButton nam_Radio;
-
     @FXML
     private RadioButton nu_Radio;
-
     @FXML
     private TextField dien_thoai_textF;
-
     @FXML
     private TextField noi_O_TextF;
-
     private Connection con;
     private String getValueRadio;
     private int chuc_vu;
-    private ObservableList<String> observableList = FXCollections.observableArrayList();
 
     @FXML
     void saveAction(ActionEvent event) {
-        if(ho_ten_textF.getText().equals("")||user_textF.getText().equals("")||pass_textF.getText().equals("")||dien_thoai_textF.getText().equals("")) {
+        if (ho_ten_textF.getText().equals("") || user_textF.getText().equals("") || pass_textF.getText().equals("") || dien_thoai_textF.getText().equals("")) {
             new DialogError("Khôn được đẻ trống các thông tin");
-        }else{
+        } else {
             try {
                 con = ConnectionClass.getInstances().getConnection();
                 String sql = "insert into login values(?,?,?);";
                 PreparedStatement ptsmt = con.prepareStatement(sql);
-                ptsmt.setString(1,user_textF.getText());
-                ptsmt.setString(2,pass_textF.getText());
-                ptsmt.setInt(3,chuc_vu);
+                ptsmt.setString(1, user_textF.getText());
+                ptsmt.setString(2, pass_textF.getText());
+                ptsmt.setInt(3, chuc_vu);
                 ptsmt.execute();
                 ptsmt.close();
                 String sql2 = "insert into thong_tin_chi_tiet values(?,null,?,?,?,?);";
                 ptsmt = con.prepareStatement(sql2);
-                ptsmt.setString(1,user_textF.getText());
-                ptsmt.setString(2,noi_O_TextF.getText());
-                ptsmt.setString(3,getValueRadio);
-                ptsmt.setString(4,dien_thoai_textF.getText());
-                ptsmt.setString(5,ho_ten_textF.getText());
+                ptsmt.setString(1, user_textF.getText());
+                ptsmt.setString(2, noi_O_TextF.getText());
+                ptsmt.setString(3, getValueRadio);
+                ptsmt.setString(4, dien_thoai_textF.getText());
+                ptsmt.setString(5, ho_ten_textF.getText());
                 ptsmt.execute();
                 ptsmt.close();
 
                 new DialogError("Đã thêm nhân viên thành công");
                 HomeController.setChildPane("Resources/FXML/listEmp.fxml");
-                Stage s =  (Stage)ho_ten_textF.getScene().getWindow();
+                Stage s = (Stage) ho_ten_textF.getScene().getWindow();
                 s.close();
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -107,10 +98,11 @@ public class insertEmpFormController implements Initializable {
         chuc_Vu_ComboBox.setValue("cửa hàng trưởng");
         chuc_vu = 1;
         chuc_Vu_ComboBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String oldValue, String newValue) {
-                if(newValue.equals("cửa hàng trưởng")){
+            @Override
+            public void changed(ObservableValue ov, String oldValue, String newValue) {
+                if (newValue.equals("cửa hàng trưởng")) {
                     chuc_vu = 1;
-                }else {
+                } else {
                     chuc_vu = 2;
                 }
             }

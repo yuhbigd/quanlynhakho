@@ -7,11 +7,9 @@ import com.google.zxing.common.HybridBinarizer;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,33 +19,27 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sample.Others.DialogError;
-import sample.Others.Item;
-import sample.Others.View;
-import sample.Others.initialization;
 
-
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class scanBarcodeController implements Initializable {
+    public static StringProperty barcode;
+    private final ObjectProperty<Image> imageProperty = new SimpleObjectProperty<Image>();
     @FXML
     private ImageView webcamPane;
-
     @FXML
     private AnchorPane pane;
     private BufferedImage grabbedImage;
     private Webcam webcam = null;
     private Thread th;
     private boolean stopCamera;
-    private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<Image>();
-    public static StringProperty barcode;
     @FXML
     private Label name;
     @FXML
     private Button close;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         stopCamera = false;
@@ -74,7 +66,7 @@ public class scanBarcodeController implements Initializable {
                                         LuminanceSource source = new BufferedImageLuminanceSource(grabbedImage);
                                         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
                                         Result result = new MultiFormatReader().decode(bitmap);
-                                        if(result.getText() != null) {
+                                        if (result.getText() != null) {
                                             barcode.setValue(result.getText());
                                             stopCamera = true;
                                             try {
@@ -86,10 +78,10 @@ public class scanBarcodeController implements Initializable {
                                             }
                                         }
 
-                                    }catch (NotFoundException e ) {
+                                    } catch (NotFoundException e) {
                                         //pass
                                     }
-                                    if(stopCamera==true){
+                                    if (stopCamera == true) {
                                         Platform.runLater(new Runnable() {
                                             @Override
                                             public void run() {
@@ -114,9 +106,10 @@ public class scanBarcodeController implements Initializable {
         th.start();
 
     }
+
     @FXML
     public void closeAc(ActionEvent event) {
-        if(th.isAlive()) {
+        if (th.isAlive()) {
             try {
                 th.interrupt();
                 webcam.close();

@@ -38,7 +38,7 @@ public class insertNCCController implements Initializable {
     void okAction(ActionEvent event) {
         if (tenTF.getText().length() < 1 || diachiTF.getText().length() < 1 || sdtTF.getText().length() < 1 || maCTTF.getText().length() < 1) {
             new DialogError("Không thể để trống các vùng nhập");
-        } else if (initialization.allCongty.keySet().contains(maCTTF.getText())) {
+        } else if (initialization.allCongty.containsKey(maCTTF.getText())) {
             new DialogError("Mã khách hàng không thể trùng");
         } else {
             try {

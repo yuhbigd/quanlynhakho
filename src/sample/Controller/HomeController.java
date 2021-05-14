@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import sample.SceneMap;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
@@ -18,25 +17,37 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
+    public static Pane childPane = null;
+    public static AnchorPane mainPane = null;
     @FXML
     private Button homeButton;
     @FXML
     private AnchorPane centerPane;
-
     @FXML
     private Label clock;
     @FXML
     private Button admin;
-
     @FXML
     private Label username;
 
-    public static Pane childPane = null;
+    public static void setChildPane(String URL) {
+        AbstractController abs = null;
+        try {
+            abs = SceneMap.getInstances().getLoader(URL).getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        childPane = abs.getPane();
+        childPane.setMaxHeight(mainPane.getPrefHeight());
+        childPane.setMaxWidth(mainPane.getPrefWidth());
 
-    public static AnchorPane mainPane = null;
+        mainPane.getChildren().clear();
+        mainPane.getChildren().add(childPane);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(LoginController.loggerAccessLevel == 2) {
+        if (LoginController.loggerAccessLevel == 2) {
             admin.setDisable(true);
         }
         mainPane = centerPane;
@@ -55,7 +66,6 @@ public class HomeController implements Initializable {
         newClock.start();
         username.setText(LoginController.loggerUsername);
     }
-
 
     private void runClock() {
         while (true) {
@@ -76,18 +86,21 @@ public class HomeController implements Initializable {
     }
 
     public void homeButtonOnClick(ActionEvent event) {
-       setChildPane("Resources/FXML/Dashboard.fxml");
+        setChildPane("Resources/FXML/Dashboard.fxml");
     }
 
     public void intvetoryOnClick(ActionEvent event) {
         setChildPane("Resources/FXML/listAllItem.fxml");
     }
+
     public void sellOnClick(ActionEvent event) {
         setChildPane("Resources/FXML/listXuatHang.fxml");
     }
+
     public void adminOnClick(ActionEvent event) {
         setChildPane("Resources/FXML/listEmp.fxml");
     }
+
     @FXML
     void listKH(ActionEvent event) {
         setChildPane("Resources/FXML/listKhach_hang.fxml");
@@ -101,19 +114,5 @@ public class HomeController implements Initializable {
     @FXML
     void nhapHang(ActionEvent event) {
         setChildPane("Resources/FXML/listNhapHang.fxml");
-    }
-    public static void setChildPane(String URL){
-        AbstractController abs = null;
-        try {
-            abs = SceneMap.getInstances().getLoader(URL).getController();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        childPane = abs.getPane();
-        childPane.setMaxHeight(mainPane.getPrefHeight());
-        childPane.setMaxWidth(mainPane.getPrefWidth());
-
-        mainPane.getChildren().clear();
-        mainPane.getChildren().add(childPane);
     }
 }

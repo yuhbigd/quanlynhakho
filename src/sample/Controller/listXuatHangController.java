@@ -15,52 +15,40 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import sample.ConnectionClass;
-
 import sample.Others.View;
 import sample.Others.initialization;
 import sample.Others.phieuXuat;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class listXuatHangController extends AbstractController implements Initializable {
 
+    public static phieuXuat phieuXuat;
+    private final ObservableList<phieuXuat> masterData = FXCollections.observableArrayList();
     @FXML
     private AnchorPane pane;
-
     @FXML
     private TableView<phieuXuat> listItem;
-
     @FXML
-    private TableColumn<phieuXuat,String> ma_khach_hang;
-
+    private TableColumn<phieuXuat, String> ma_khach_hang;
     @FXML
-    private TableColumn<phieuXuat,String> ma_xuat_hang;
-
+    private TableColumn<phieuXuat, String> ma_xuat_hang;
     @FXML
-    private TableColumn<phieuXuat,String> thoi_gian_xuat;
-
+    private TableColumn<phieuXuat, String> thoi_gian_xuat;
     @FXML
-    private TableColumn<phieuXuat,String> tai_khoan_ban;
-
+    private TableColumn<phieuXuat, String> tai_khoan_ban;
     @FXML
-    private TableColumn<phieuXuat,Double> tong_tien_da_tra;
-
+    private TableColumn<phieuXuat, Double> tong_tien_da_tra;
     @FXML
     private TextField search_tf;
-
     @FXML
     private Button addBtn;
-
     @FXML
     private Button detailBtn;
-
     private Connection con;
-
-    private ObservableList<phieuXuat> masterData = FXCollections.observableArrayList();
-
-    public static phieuXuat phieuXuat;
 
     @FXML
     void addingAction(ActionEvent event) {
@@ -80,7 +68,7 @@ public class listXuatHangController extends AbstractController implements Initia
         thoi_gian_xuat.setCellValueFactory(new PropertyValueFactory<>("thoi_gian_xuat"));
         tai_khoan_ban.setCellValueFactory(new PropertyValueFactory<>("nguoi_ban"));
         tong_tien_da_tra.setCellValueFactory(new PropertyValueFactory<>("tong_tien"));
-        FilteredList<phieuXuat> xuatFilteredList = new FilteredList<phieuXuat>(masterData,p-> true);
+        FilteredList<phieuXuat> xuatFilteredList = new FilteredList<phieuXuat>(masterData, p -> true);
         search_tf.textProperty().addListener((observable, oldValue, newValue) -> {
             xuatFilteredList.setPredicate(phieuXuat -> {
                 // If filter text is empty, display all persons.
@@ -95,21 +83,18 @@ public class listXuatHangController extends AbstractController implements Initia
                 if (phieuXuat.getMa_xuat_hang().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
-                if (phieuXuat.getNguoi_ban().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
+                return phieuXuat.getNguoi_ban().toLowerCase().contains(lowerCaseFilter);
             });
         });
         SortedList<phieuXuat> xuatSortedList = new SortedList<>(xuatFilteredList);
         xuatSortedList.comparatorProperty().bind(listItem.comparatorProperty());
         listItem.setItems(xuatSortedList);
-        listItem.setOnMouseClicked((MouseEvent event)-> {
-            if(event.getClickCount() > 0) {
-                if(listItem.getSelectionModel().getSelectedItem() != null) {
+        listItem.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 0) {
+                if (listItem.getSelectionModel().getSelectedItem() != null) {
                     detailBtn.setDisable(false);
                     phieuXuat = listItem.getSelectionModel().getSelectedItem();
-                    if(event.getClickCount() > 1) {
+                    if (event.getClickCount() > 1) {
                         new View("/sample/Resources/FXML/detailPhieuXuat.fxml");
                     }
                 }
@@ -127,7 +112,7 @@ public class listXuatHangController extends AbstractController implements Initia
         setDataForList();
     }
 
-    public void setDataForList(){
+    public void setDataForList() {
         masterData.clear();
         initialization.setDataForPhieuXuat();
         masterData.addAll(initialization.allPhieuXuat.values());

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
-<AnchorPane prefHeight="605.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.listNhapHangToday">
-        <TableView fx:id="listItem" layoutY="27.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="578.0" prefWidth="647.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="ma_nhap_hang" prefWidth="117.0" text="Mã nhập hàng" />
-                <TableColumn fx:id="ma_cong_ty" prefWidth="136.0" text="Mã công ty" />
-                <TableColumn fx:id="thoi_gian_nhap" prefWidth="155.0" text="Thời gian nhập" />
-                <TableColumn fx:id="tai_khoan_nhap" prefWidth="117.0" text="Tài khoản nhập" />
-                <TableColumn fx:id="tong_tien_da_tra" prefWidth="121.0" text="Tổng tiền" />
-            </columns>
-        </TableView>
-   <TextField fx:id="searchTF" layoutX="484.0" layoutY="2.0" />
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="605.0" prefWidth="647.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="sample.Controller.listNhapHangToday">
+    <TableView fx:id="listItem" layoutY="27.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+               prefHeight="578.0" prefWidth="647.0" BorderPane.alignment="CENTER">
+        <columns>
+            <TableColumn fx:id="ma_nhap_hang" prefWidth="117.0" text="Mã nhập hàng"/>
+            <TableColumn fx:id="ma_cong_ty" prefWidth="136.0" text="Mã công ty"/>
+            <TableColumn fx:id="thoi_gian_nhap" prefWidth="155.0" text="Thời gian nhập"/>
+            <TableColumn fx:id="tai_khoan_nhap" prefWidth="117.0" text="Tài khoản nhập"/>
+            <TableColumn fx:id="tong_tien_da_tra" prefWidth="121.0" text="Tổng tiền"/>
+        </columns>
+    </TableView>
+    <TextField fx:id="searchTF" layoutX="484.0" layoutY="2.0"/>
 </AnchorPane>

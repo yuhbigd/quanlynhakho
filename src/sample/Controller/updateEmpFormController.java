@@ -18,34 +18,27 @@ import java.util.ResourceBundle;
 
 public class updateEmpFormController implements Initializable {
 
+    private final ObservableList<String> observableList = FXCollections.observableArrayList();
+    Connection con;
     @FXML
     private TextField ho_ten_textF;
-
     @FXML
     private TextField user_textF;
-
     @FXML
     private TextField pass_textF;
-
     @FXML
     private ComboBox<String> chuc_Vu_ComboBox;
-
     @FXML
     private RadioButton nam_Radio;
-
     @FXML
     private RadioButton nu_Radio;
-
     @FXML
     private TextField dien_thoai_textF;
-
     @FXML
     private TextField noi_O_TextF;
     private String getValueRadio;
     private int chuc_vu;
-    private ObservableList<String> observableList = FXCollections.observableArrayList();
 
-    Connection con;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         user_textF.setText(listEmpController.emp.getUser_name());
@@ -67,10 +60,10 @@ public class updateEmpFormController implements Initializable {
             }
         });
 
-        if(listEmpController.emp.getGioi_tinh().equals("nam")) {
+        if (listEmpController.emp.getGioi_tinh().equals("nam")) {
             nam_Radio.setSelected(true);
             getValueRadio = "nam";
-        }else {
+        } else {
             nu_Radio.setSelected(true);
             getValueRadio = "nu";
         }
@@ -78,20 +71,21 @@ public class updateEmpFormController implements Initializable {
         observableList.add("nhân viên");
         chuc_Vu_ComboBox.getItems().clear();
         chuc_Vu_ComboBox.setItems(observableList);
-        if(listEmpController.emp.getTen_chuc_vu().equals("cua hang truong")){
+        if (listEmpController.emp.getTen_chuc_vu().equals("cua hang truong")) {
             chuc_Vu_ComboBox.setValue("cửa hàng trưởng");
             chuc_vu = 1;
-        }else {
+        } else {
             chuc_Vu_ComboBox.setValue("nhân viên");
             chuc_vu = 2;
         }
         chuc_Vu_ComboBox.valueProperty().addListener(new ChangeListener<String>() {
-            @Override public void changed(ObservableValue ov, String oldValue, String newValue) {
-                     if(newValue.equals("cửa hàng trưởng")){
-                         chuc_vu = 1;
-                     }else {
-                         chuc_vu = 2;
-                     }
+            @Override
+            public void changed(ObservableValue ov, String oldValue, String newValue) {
+                if (newValue.equals("cửa hàng trưởng")) {
+                    chuc_vu = 1;
+                } else {
+                    chuc_vu = 2;
+                }
             }
         });
         dien_thoai_textF.textProperty().addListener(new ChangeListener<String>() {
@@ -110,29 +104,28 @@ public class updateEmpFormController implements Initializable {
             con = ConnectionClass.getInstances().getConnection();
             String sql = "update login set user_name = ?,password = ?,Chuc_vu_id = ? where user_name = ?;";
             PreparedStatement ptsmt = con.prepareStatement(sql);
-            ptsmt.setString(1,user_textF.getText());
-            ptsmt.setString(2,pass_textF.getText());
-            ptsmt.setInt(3,chuc_vu);
-            ptsmt.setString(4,listEmpController.emp.getUser_name());
+            ptsmt.setString(1, user_textF.getText());
+            ptsmt.setString(2, pass_textF.getText());
+            ptsmt.setInt(3, chuc_vu);
+            ptsmt.setString(4, listEmpController.emp.getUser_name());
             ptsmt.executeUpdate();
             ptsmt.close();
 
             String sql2 = "update thong_tin_chi_tiet\n" +
                     "set ho_ten = ?, dien_thoai = ?,gioi_tinh=?,noi_o=? where  Login_user_name = ?;";
             ptsmt = con.prepareStatement(sql2);
-            ptsmt.setString(1,ho_ten_textF.getText());
-            ptsmt.setString(2,dien_thoai_textF.getText());
-            ptsmt.setString(3,getValueRadio);
-            ptsmt.setString(4,noi_O_TextF.getText());
-            ptsmt.setString(5,user_textF.getText());
+            ptsmt.setString(1, ho_ten_textF.getText());
+            ptsmt.setString(2, dien_thoai_textF.getText());
+            ptsmt.setString(3, getValueRadio);
+            ptsmt.setString(4, noi_O_TextF.getText());
+            ptsmt.setString(5, user_textF.getText());
             ptsmt.executeUpdate();
 
             HomeController.setChildPane("Resources/FXML/listEmp.fxml");
-            Stage s =  (Stage)ho_ten_textF.getScene().getWindow();
+            Stage s = (Stage) ho_ten_textF.getScene().getWindow();
             s.close();
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -1,68 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.DashboardController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="sample.Controller.DashboardController">
     <children>
-      <AnchorPane fx:id="miniPane" layoutX="16.0" layoutY="45.0" prefHeight="205.0" prefWidth="641.0">
-         <children>
-            <Button layoutX="198.0" layoutY="26.0" mnemonicParsing="false" onAction="#listXuat" prefHeight="154.0" prefWidth="154.0" style="-fx-border-radius: 50%; -fx-background-radius: 50%;" text="Danh sách phiếu xuất" />
-              <Button layoutX="14.0" layoutY="26.0" mnemonicParsing="false" onAction="#listNhap" prefHeight="154.0" prefWidth="154.0" style="-fx-background-radius: 50%; -fx-border-radius: 50%;" text="Danh sách phiếu nhập" />
-         </children></AnchorPane>
+        <AnchorPane fx:id="miniPane" layoutX="16.0" layoutY="45.0" prefHeight="205.0" prefWidth="641.0">
+            <children>
+                <Button layoutX="198.0" layoutY="26.0" mnemonicParsing="false" onAction="#listXuat" prefHeight="154.0"
+                        prefWidth="154.0" style="-fx-border-radius: 50%; -fx-background-radius: 50%;"
+                        text="Danh sách phiếu xuất"/>
+                <Button layoutX="14.0" layoutY="26.0" mnemonicParsing="false" onAction="#listNhap" prefHeight="154.0"
+                        prefWidth="154.0" style="-fx-background-radius: 50%; -fx-border-radius: 50%;"
+                        text="Danh sách phiếu nhập"/>
+            </children>
+        </AnchorPane>
         <Label layoutX="181.0" layoutY="16.0" text="Thống kê trong ngày :">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></Label>
-        <Label layoutX="437.0" layoutY="102.0" text="Số lần xuất hàng" />
-        <Label layoutX="435.0" layoutY="137.0" text="Số lần nhập hàng" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="4.0" layoutX="16.0" layoutY="264.0" stroke="WHITE" strokeType="INSIDE" width="657.0" />
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+        </Label>
+        <Label layoutX="437.0" layoutY="102.0" text="Số lần xuất hàng"/>
+        <Label layoutX="435.0" layoutY="137.0" text="Số lần nhập hàng"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="4.0" layoutX="16.0" layoutY="264.0"
+                   stroke="WHITE" strokeType="INSIDE" width="657.0"/>
         <Label layoutX="48.0" layoutY="285.0" text="Biểu đồ doanh thu các ngày trong tháng">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></Label>
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+        </Label>
         <LineChart fx:id="dayChart" layoutX="7.0" layoutY="322.0" prefHeight="250.0" prefWidth="320.0">
             <xAxis>
-                <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
             </xAxis>
             <yAxis>
-                <NumberAxis fx:id="yAxis" side="LEFT" />
+                <NumberAxis fx:id="yAxis" side="LEFT"/>
             </yAxis>
         </LineChart>
         <Label fx:id="soLanXuat" layoutX="581.0" layoutY="102.0" text="0">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Label>
         <Label fx:id="soLanNhap" layoutX="581.0" layoutY="137.0" text="0">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-        <Label layoutX="435.0" layoutY="71.0" text="Sản phẩm đã hết " />
-      <Label layoutX="390.0" layoutY="286.0" text=" thống kê loại hàng bán chạy trong tháng">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></Label>
-      <PieChart fx:id="circleChart" layoutX="360.0" layoutY="322.0" prefHeight="250.0" prefWidth="320.0" />
-      <Label fx:id="date" layoutX="337.0" layoutY="16.0" prefHeight="17.0" prefWidth="180.0">
-         <font>
-            <Font name="System Bold Italic" size="14.0" />
-         </font></Label>
-      <Label layoutX="437.0" layoutY="170.0" text="Tổng giá trị nhập vào" />
-      <Label fx:id="tongNhap" layoutX="581.0" layoutY="170.0" text="0">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Label layoutX="437.0" layoutY="204.0" text="Tống giá trị xuất ra" />
-      <Label fx:id="tongXuat" layoutX="581.0" layoutY="204.0" text="0">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
-      <Label fx:id="outOfStock" layoutX="581.0" layoutY="71.0" text="0">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font></Label>
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Label>
+        <Label layoutX="435.0" layoutY="71.0" text="Sản phẩm đã hết "/>
+        <Label layoutX="390.0" layoutY="286.0" text=" thống kê loại hàng bán chạy trong tháng">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+        </Label>
+        <PieChart fx:id="circleChart" layoutX="360.0" layoutY="322.0" prefHeight="250.0" prefWidth="320.0"/>
+        <Label fx:id="date" layoutX="337.0" layoutY="16.0" prefHeight="17.0" prefWidth="180.0">
+            <font>
+                <Font name="System Bold Italic" size="14.0"/>
+            </font>
+        </Label>
+        <Label layoutX="437.0" layoutY="170.0" text="Tổng giá trị nhập vào"/>
+        <Label fx:id="tongNhap" layoutX="581.0" layoutY="170.0" text="0">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Label>
+        <Label layoutX="437.0" layoutY="204.0" text="Tống giá trị xuất ra"/>
+        <Label fx:id="tongXuat" layoutX="581.0" layoutY="204.0" text="0">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Label>
+        <Label fx:id="outOfStock" layoutX="581.0" layoutY="71.0" text="0">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </Label>
     </children>
 </AnchorPane>

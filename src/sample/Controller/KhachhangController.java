@@ -26,44 +26,32 @@ import java.util.ResourceBundle;
 
 public class KhachhangController extends AbstractController implements Initializable {
 
+    public static Khachhang khachhang;
+    private final ObservableList<Khachhang> masterData = FXCollections.observableArrayList();
     @FXML
     private AnchorPane pane;
-
     @FXML
     private TableView<Khachhang> listItem;
-
     @FXML
     private TableColumn<Khachhang, String> ma_khach_hang;
-
     @FXML
     private TableColumn<Khachhang, String> ten_khach_hang;
-
     @FXML
     private TableColumn<Khachhang, String> dia_chi;
-
     @FXML
     private TableColumn<Khachhang, String> so_dien_thoai;
-
     @FXML
     private TableColumn<Khachhang, Integer> so_lan_mua;
-
     @FXML
     private TableColumn<Khachhang, Double> tong_tien_da_tra;
-
     @FXML
     private TextField search_tf;
-
     @FXML
     private Button addBtn;
-
     @FXML
     private Button updateBtn;
-
     private Connection con;
 
-    public static Khachhang khachhang;
-
-    private ObservableList<Khachhang> masterData = FXCollections.observableArrayList();
     @FXML
     void addingAction(ActionEvent event) {
         new View("/sample/Resources/FXML/insertKhachHangForm.fxml");
@@ -103,28 +91,26 @@ public class KhachhangController extends AbstractController implements Initializ
                 if (khach_hang.getMa_khach().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
-                if (khach_hang.getTen_khach_hang().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
+                return khach_hang.getTen_khach_hang().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
-        SortedList<Khachhang> sortedKhachhang =  new SortedList<>(itemFilteredList);
+        SortedList<Khachhang> sortedKhachhang = new SortedList<>(itemFilteredList);
         sortedKhachhang.comparatorProperty().bind(listItem.comparatorProperty());
         listItem.setItems(sortedKhachhang);
-        listItem.setOnMouseClicked((MouseEvent event)-> {
-            if(event.getClickCount() > 0) {
-                if(listItem.getSelectionModel().getSelectedItem() != null) {
+        listItem.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 0) {
+                if (listItem.getSelectionModel().getSelectedItem() != null) {
                     updateBtn.setDisable(false);
                     khachhang = listItem.getSelectionModel().getSelectedItem();
-                    if(event.getClickCount() > 1) {
+                    if (event.getClickCount() > 1) {
                         new View("/sample/Resources/FXML/updateKhachHang.fxml");
                     }
                 }
             }
         });
     }
+
     public void setDataForList() {
         masterData.clear();
         initialization.setDataForKhachHang();

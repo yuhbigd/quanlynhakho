@@ -1,7 +1,14 @@
 package sample.Others;
 
 public class Item {
-    public Item(String barcode, String item_name, int so_luong, double gia_ban, String item_type, String trang_thai,double gia_nhap) {
+    private String barcode;
+    private String item_name;
+    private int so_luong;
+    private double gia_ban;
+    private String item_type;
+    private String trang_thai;
+    private double gia_nhap;
+    public Item(String barcode, String item_name, int so_luong, double gia_ban, String item_type, String trang_thai, double gia_nhap) {
         this.barcode = barcode;
         this.item_name = item_name;
         this.so_luong = so_luong;
@@ -11,19 +18,6 @@ public class Item {
         this.gia_nhap = gia_nhap;
     }
 
-    private String barcode;
-    private String item_name;
-    private int so_luong;
-    private double gia_ban;
-    private String item_type;
-    private String trang_thai;
-    private double gia_nhap;
-
-
-    public void setItem_type(String item_type) {
-        this.item_type = item_type;
-    }
-
     public double getGia_nhap() {
         return gia_nhap;
     }
@@ -31,6 +25,7 @@ public class Item {
     public void setGia_nhap(double gia_nhap) {
         this.gia_nhap = gia_nhap;
     }
+
     public String getBarcode() {
         return barcode;
     }
@@ -65,6 +60,10 @@ public class Item {
 
     public String getItem_type() {
         return item_type;
+    }
+
+    public void setItem_type(String item_type) {
+        this.item_type = item_type;
     }
 
     public void setItem_type(int item_type_id) {

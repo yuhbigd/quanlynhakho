@@ -26,33 +26,23 @@ import java.util.ResourceBundle;
 
 public class listNhapHangController extends AbstractController implements Initializable {
 
+    public static phieuNhap phieunhap;
+    private final ObservableList<phieuNhap> masterData = FXCollections.observableArrayList();
     @FXML
     private AnchorPane pane;
-
     @FXML
     private TableView<phieuNhap> listItem;
-
     @FXML
     private TableColumn<phieuNhap, String> ma_nhap_hang;
-
     @FXML
     private TableColumn<phieuNhap, String> ma_cong_ty;
-
     @FXML
     private TableColumn<phieuNhap, String> thoi_gian_nhap;
-
     @FXML
     private TableColumn<phieuNhap, String> tai_khoan_nhap;
-
     @FXML
     private TableColumn<phieuNhap, Double> tong_tien_da_tra;
-
     private Connection con;
-
-    private ObservableList<phieuNhap> masterData = FXCollections.observableArrayList();
-
-    public static phieuNhap phieunhap;
-
     @FXML
     private TextField search_tf;
 
@@ -87,7 +77,7 @@ public class listNhapHangController extends AbstractController implements Initia
         thoi_gian_nhap.setCellValueFactory(new PropertyValueFactory<>("thoi_gian_nhap"));
         tai_khoan_nhap.setCellValueFactory(new PropertyValueFactory<>("nguoi_nhap"));
         tong_tien_da_tra.setCellValueFactory(new PropertyValueFactory<>("tong_tien"));
-        FilteredList<phieuNhap> nhapFilteredList = new FilteredList<phieuNhap>(masterData, p-> true);
+        FilteredList<phieuNhap> nhapFilteredList = new FilteredList<phieuNhap>(masterData, p -> true);
         search_tf.textProperty().addListener((observable, oldValue, newValue) -> {
             nhapFilteredList.setPredicate(phieuNhap -> {
                 // If filter text is empty, display all persons.
@@ -102,21 +92,18 @@ public class listNhapHangController extends AbstractController implements Initia
                 if (phieuNhap.getMa_nhap_hang().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
-                if (phieuNhap.getNguoi_nhap().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
+                return phieuNhap.getNguoi_nhap().toLowerCase().contains(lowerCaseFilter);
             });
         });
         SortedList<phieuNhap> nhapSortedList = new SortedList<>(nhapFilteredList);
         nhapSortedList.comparatorProperty().bind(listItem.comparatorProperty());
         listItem.setItems(nhapSortedList);
-        listItem.setOnMouseClicked((MouseEvent event)-> {
-            if(event.getClickCount() > 0) {
-                if(listItem.getSelectionModel().getSelectedItem() != null) {
+        listItem.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 0) {
+                if (listItem.getSelectionModel().getSelectedItem() != null) {
                     detailBtn.setDisable(false);
                     phieunhap = listItem.getSelectionModel().getSelectedItem();
-                    if(event.getClickCount() > 1) {
+                    if (event.getClickCount() > 1) {
                         new View("/sample/Resources/FXML/detailPhieuNhap.fxml");
                         detailBtn.setDisable(true);
                     }
@@ -134,7 +121,7 @@ public class listNhapHangController extends AbstractController implements Initia
         setDataForList();
     }
 
-    public void setDataForList(){
+    public void setDataForList() {
         masterData.clear();
         initialization.setDataForPhieuNhap();
         masterData.addAll(initialization.allPhieuNhap.values());

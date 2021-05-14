@@ -2,14 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.detailPhieuNhap">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="600.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="sample.Controller.detailPhieuNhap">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="600.0">
             <top>
                 <AnchorPane prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TextField fx:id="search_tf" layoutX="377.0" layoutY="3.0" prefHeight="25.0" prefWidth="185.0" promptText="tìm sản phẩm trong mã xuất" />
+                        <TextField fx:id="search_tf" layoutX="377.0" layoutY="3.0" prefHeight="25.0" prefWidth="185.0"
+                                   promptText="tìm sản phẩm trong mã xuất"/>
                     </children>
                 </AnchorPane>
             </top>
@@ -18,10 +19,10 @@
                     <children>
                         <TableView fx:id="listAll" prefHeight="570.0" prefWidth="600.0">
                             <columns>
-                                <TableColumn fx:id="ma_nhap_hang" prefWidth="150.0" text="Mã nhập hàng" />
-                                <TableColumn fx:id="item_barcode" prefWidth="150.0" text="Barcode" />
-                                <TableColumn fx:id="so_luong_san_pham" prefWidth="150.0" text="Số lượng sản phẩm" />
-                                <TableColumn fx:id="gia_san_pham" prefWidth="150.0" text="Giá sản phẩm" />
+                                <TableColumn fx:id="ma_nhap_hang" prefWidth="150.0" text="Mã nhập hàng"/>
+                                <TableColumn fx:id="item_barcode" prefWidth="150.0" text="Barcode"/>
+                                <TableColumn fx:id="so_luong_san_pham" prefWidth="150.0" text="Số lượng sản phẩm"/>
+                                <TableColumn fx:id="gia_san_pham" prefWidth="150.0" text="Giá sản phẩm"/>
                             </columns>
                         </TableView>
                     </children>

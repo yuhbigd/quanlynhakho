@@ -14,66 +14,48 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import sample.ConnectionClass;
 import sample.Others.Item;
 import sample.Others.View;
 import sample.Others.initialization;
 
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class listAllItemController extends AbstractController implements Initializable  {
+public class listAllItemController extends AbstractController implements Initializable {
+    public static Item item;
+    public static ArrayList<String> item_Barcode = new ArrayList<>();
+    public static ArrayList<String> item_Type = new ArrayList<>();
+    private final Connection con = null;
+    private final ObservableList<Item> masterData = FXCollections.observableArrayList();
     @FXML
     private AnchorPane pane;
-
     @FXML
     private TableView<Item> listItem;
-
     @FXML
     private TableColumn<Item, String> barcode;
-
     @FXML
     private TableColumn<Item, String> item_name;
-
     @FXML
     private TableColumn<Item, Integer> quantity;
-
     @FXML
     private TableColumn<Item, Double> price;
-
     @FXML
     private TableColumn<Item, String> type;
-
     @FXML
     private TableColumn<Item, String> status;
     @FXML
     private TableColumn<Item, Double> gia_nhapCL;
-
     @FXML
     private TextField search_tf;
-
     @FXML
     private Button searchBtn;
-
     @FXML
     private Button addBtn;
-
     @FXML
     private Button updateBtn;
-
-    public static Item item;
-
-    private Connection con = null;
-
-    public static ArrayList<String> item_Barcode = new ArrayList<>();
-
-    public static ArrayList<String> item_Type = new ArrayList<>();
-
-
-    private ObservableList<Item> masterData = FXCollections.observableArrayList();
-
 
 
     public listAllItemController() throws SQLException, ClassNotFoundException {
@@ -104,10 +86,7 @@ public class listAllItemController extends AbstractController implements Initial
                 if (item.getBarcode().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
-                if (item.getItem_name().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
+                return item.getItem_name().toLowerCase().contains(lowerCaseFilter);
             });
         });
         SortedList<Item> sortedItem = new SortedList<>(itemFilteredList);
@@ -117,12 +96,12 @@ public class listAllItemController extends AbstractController implements Initial
         listItem.setItems(sortedItem);
 
 
-        listItem.setOnMouseClicked((MouseEvent event)-> {
-            if(event.getClickCount() > 0) {
-                if(listItem.getSelectionModel().getSelectedItem() != null) {
+        listItem.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 0) {
+                if (listItem.getSelectionModel().getSelectedItem() != null) {
                     updateBtn.setDisable(false);
                     item = listItem.getSelectionModel().getSelectedItem();
-                    if(event.getClickCount() > 1) {
+                    if (event.getClickCount() > 1) {
                         new View("/sample/Resources/FXML/lichSuNhapHang.fxml");
                     }
                 }

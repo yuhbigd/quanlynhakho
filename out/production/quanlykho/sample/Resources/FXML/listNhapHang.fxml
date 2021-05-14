@@ -2,28 +2,33 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="688.0" stylesheets="@../CSS/inventory.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.listNhapHangController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="600.0" prefWidth="688.0"
+            stylesheets="@../CSS/inventory.css" xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="sample.Controller.listNhapHangController">
     <children>
         <BorderPane prefHeight="600.0" prefWidth="688.0">
             <center>
-                <TableView fx:id="listItem" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="570.0" prefWidth="647.0" BorderPane.alignment="CENTER">
+                <TableView fx:id="listItem" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                           prefHeight="570.0" prefWidth="647.0" BorderPane.alignment="CENTER">
                     <columns>
-                        <TableColumn fx:id="ma_nhap_hang" prefWidth="117.0" text="Mã nhập hàng" />
-                        <TableColumn fx:id="ma_cong_ty" prefWidth="136.0" text="Mã công ty" />
-                        <TableColumn fx:id="thoi_gian_nhap" prefWidth="161.0" text="Thời gian nhập" />
-                        <TableColumn fx:id="tai_khoan_nhap" prefWidth="137.6" text="Tài khoản nhập" />
-                        <TableColumn fx:id="tong_tien_da_tra" prefWidth="135.0" text="Tổng tiền" />
+                        <TableColumn fx:id="ma_nhap_hang" prefWidth="117.0" text="Mã nhập hàng"/>
+                        <TableColumn fx:id="ma_cong_ty" prefWidth="136.0" text="Mã công ty"/>
+                        <TableColumn fx:id="thoi_gian_nhap" prefWidth="161.0" text="Thời gian nhập"/>
+                        <TableColumn fx:id="tai_khoan_nhap" prefWidth="137.6" text="Tài khoản nhập"/>
+                        <TableColumn fx:id="tong_tien_da_tra" prefWidth="135.0" text="Tổng tiền"/>
                     </columns>
                 </TableView>
             </center>
             <top>
                 <AnchorPane prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TextField fx:id="search_tf" layoutX="489.0" layoutY="7.0" prefHeight="25.0" prefWidth="185.0" />
-                        <Button fx:id="addBtn" layoutX="22.0" layoutY="7.0" mnemonicParsing="false" onAction="#addingAction" text="Thêm" />
-                        <Button fx:id="detailBtn" layoutX="122.0" layoutY="7.0" mnemonicParsing="false" onAction="#detailAction" prefHeight="27.0" prefWidth="68.0" text="Chi Tiết" />
-                  <Button layoutX="237.0" layoutY="7.0" mnemonicParsing="false" onAction="#addItem" text="Thêm sản phẩm mới" />
+                        <TextField fx:id="search_tf" layoutX="489.0" layoutY="7.0" prefHeight="25.0" prefWidth="185.0"/>
+                        <Button fx:id="addBtn" layoutX="22.0" layoutY="7.0" mnemonicParsing="false"
+                                onAction="#addingAction" text="Thêm"/>
+                        <Button fx:id="detailBtn" layoutX="122.0" layoutY="7.0" mnemonicParsing="false"
+                                onAction="#detailAction" prefHeight="27.0" prefWidth="68.0" text="Chi Tiết"/>
+                        <Button layoutX="237.0" layoutY="7.0" mnemonicParsing="false" onAction="#addItem"
+                                text="Thêm sản phẩm mới"/>
                     </children>
                 </AnchorPane>
             </top>

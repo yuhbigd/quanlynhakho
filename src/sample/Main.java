@@ -1,8 +1,15 @@
 package sample;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import sample.Others.initialization;
-public class Main extends Application{
+
+public class Main extends Application {
+
+    public static void main(String[] args) {
+
+        launch(args);
+    }
 
     public void start(Stage myStage) throws Exception {
         new initialization();
@@ -11,10 +18,5 @@ public class Main extends Application{
         myStage.setResizable(false);
 
         myStage.show();
-    }
-
-    public static void main(String[] args) {
-
-        launch(args);
     }
 }

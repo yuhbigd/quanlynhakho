@@ -20,46 +20,39 @@ import java.util.ResourceBundle;
 
 public class insertKHController implements Initializable {
 
+    Connection con;
     @FXML
     private TextField maKhTF;
-
     @FXML
     private TextField tenTF;
-
     @FXML
     private TextField diachiTF;
-
     @FXML
     private TextField sdtTF;
 
-    Connection con;
-
     @FXML
     void okAction(ActionEvent event) {
-        if(tenTF.getText().length()<1||diachiTF.getText().length()<1||sdtTF.getText().length()<1||maKhTF.getText().length()<1) {
+        if (tenTF.getText().length() < 1 || diachiTF.getText().length() < 1 || sdtTF.getText().length() < 1 || maKhTF.getText().length() < 1) {
             new DialogError("Không thể để trống các vùng nhập");
-        }else if(initialization.allKhachHang.keySet().contains(maKhTF.getText())){
+        } else if (initialization.allKhachHang.containsKey(maKhTF.getText())) {
             new DialogError("Mã khách hàng không thể trùng");
-        }
-        else{
+        } else {
             try {
                 con = ConnectionClass.getInstances().getConnection();
                 String sql = "insert into khach_hang values(?,?,?,?);";
                 PreparedStatement ptsmt = con.prepareStatement(sql);
-                ptsmt.setString(1,maKhTF.getText());
-                ptsmt.setString(2,tenTF.getText());
-                ptsmt.setString(3,diachiTF.getText());
-                ptsmt.setString(4,sdtTF.getText());
+                ptsmt.setString(1, maKhTF.getText());
+                ptsmt.setString(2, tenTF.getText());
+                ptsmt.setString(3, diachiTF.getText());
+                ptsmt.setString(4, sdtTF.getText());
                 ptsmt.execute();
                 ptsmt.close();
                 new DialogError("Đã thêm khách hàng thành công");
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 HomeController.setChildPane("Resources/FXML/listKhach_hang.fxml.fxml");
-                Stage s =  (Stage)tenTF.getScene().getWindow();
+                Stage s = (Stage) tenTF.getScene().getWindow();
                 s.close();
             }
         }
@@ -83,7 +76,7 @@ public class insertKHController implements Initializable {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        TextFields.bindAutoCompletion(maKhTF,initialization.allKhachHang.keySet());
+        TextFields.bindAutoCompletion(maKhTF, initialization.allKhachHang.keySet());
 
     }
 }

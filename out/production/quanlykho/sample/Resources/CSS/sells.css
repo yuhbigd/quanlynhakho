@@ -1,6 +1,7 @@
 .root {
     -fx-background-color: white;
 }
+
 .button {
     -fx-background-radius: 35 35 35 35;
 }

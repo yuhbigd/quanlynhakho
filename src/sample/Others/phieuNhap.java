@@ -1,6 +1,11 @@
 package sample.Others;
 
 public class phieuNhap {
+    private String ma_nhap_hang;
+    private String thoi_gian_nhap;
+    private String ma_cong_ty;
+    private String nguoi_nhap;
+    private double tong_tien;
     public phieuNhap(String ma_nhap_hang, String thoi_gian_nhap, String ma_cong_ty, String nguoi_nhap, double tong_tien) {
         this.ma_nhap_hang = ma_nhap_hang;
         this.thoi_gian_nhap = thoi_gian_nhap;
@@ -8,12 +13,6 @@ public class phieuNhap {
         this.nguoi_nhap = nguoi_nhap;
         this.tong_tien = tong_tien;
     }
-
-    private String ma_nhap_hang;
-    private String thoi_gian_nhap;
-    private String ma_cong_ty;
-    private String nguoi_nhap;
-    private double tong_tien;
 
     public String getMa_nhap_hang() {
         return ma_nhap_hang;

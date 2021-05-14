@@ -26,44 +26,31 @@ import java.util.ResourceBundle;
 
 public class nhaCungCapController extends AbstractController implements Initializable {
 
+    public static Congty congty;
+    private final ObservableList<Congty> masterData = FXCollections.observableArrayList();
     @FXML
     private AnchorPane pane;
-
     @FXML
     private TableView<Congty> listItem;
-
     @FXML
     private TableColumn<Congty, String> ma_cong_ty;
-
     @FXML
     private TableColumn<Congty, String> ten_cong_ty;
-
     @FXML
     private TableColumn<Congty, String> dia_chi;
-
     @FXML
-    private TableColumn<Congty,String> so_dien_thoai;
-
+    private TableColumn<Congty, String> so_dien_thoai;
     @FXML
-    private TableColumn<Congty,Integer> so_lan_nhap;
-
+    private TableColumn<Congty, Integer> so_lan_nhap;
     @FXML
-    private TableColumn<Congty,Double> tong_tien_da_tra;
-
+    private TableColumn<Congty, Double> tong_tien_da_tra;
     @FXML
     private TextField search_tf;
-
     @FXML
     private Button addBtn;
-
     @FXML
     private Button updateBtn;
     private Connection con;
-
-    public static Congty congty;
-
-    private ObservableList<Congty> masterData = FXCollections.observableArrayList();
-
 
     @FXML
     void addingAction(ActionEvent event) {
@@ -104,29 +91,27 @@ public class nhaCungCapController extends AbstractController implements Initiali
                 if (cong_ty.getMa_cong_ty().toLowerCase().contains(lowerCaseFilter)) {
                     return true;
                 }
-                if (cong_ty.getTen_cong_ty().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
+                return cong_ty.getTen_cong_ty().toLowerCase().contains(lowerCaseFilter);
             });
         });
 
-        SortedList<Congty> sortedCongty =  new SortedList<>(itemFilteredList);
+        SortedList<Congty> sortedCongty = new SortedList<>(itemFilteredList);
         sortedCongty.comparatorProperty().bind(listItem.comparatorProperty());
         listItem.setItems(sortedCongty);
-        listItem.setOnMouseClicked((MouseEvent event)-> {
-            if(event.getClickCount() > 0) {
-                if(listItem.getSelectionModel().getSelectedItem() != null) {
+        listItem.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 0) {
+                if (listItem.getSelectionModel().getSelectedItem() != null) {
                     updateBtn.setDisable(false);
                     congty = listItem.getSelectionModel().getSelectedItem();
-                    if(event.getClickCount() > 1) {
+                    if (event.getClickCount() > 1) {
                         new View("/sample/Resources/FXML/updateNCC.fxml");
                     }
                 }
             }
         });
     }
-    public void setDataForList(){
+
+    public void setDataForList() {
         masterData.clear();
         initialization.setDataForCongTy();
         masterData.addAll(initialization.allCongty.values());

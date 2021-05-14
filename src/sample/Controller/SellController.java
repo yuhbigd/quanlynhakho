@@ -18,59 +18,50 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class SellController extends AbstractController implements Initializable {
 
+    Connection con;
     @FXML
     private TextField barTextField;
-
     @FXML
     private TextField quanTextField;
-
     @FXML
     private Label moneyReceivedLabel;
-
     @FXML
     private AnchorPane pane;
-
     @FXML
     private TextField moneyReceivedTF;
-
-
-
     @FXML
     private Label priceLabel;
-
     @FXML
     private Button verifyBtn;
-
     @FXML
     private Button completeBtn;
-
     @FXML
     private Label totalComeLabel;
     @FXML
     private Button cancelButton;
-
-    private Map<String,Integer> quantity_Map;
-    private Map<String,Double> price_Map;
+    private Map<String, Integer> quantity_Map;
+    private Map<String, Double> price_Map;
     private ArrayList<String> item_Name_Array;
-    private Map<String,Double> gia_nhap_Map;
-
+    private Map<String, Double> gia_nhap_Map;
     private String bcode;
-
     private double totalReceived;
-    Connection con;
+
     @FXML
     void Complete(ActionEvent event) {
         String moneyR = moneyReceivedTF.getText();
-        if(moneyR.equals("")){
+        if (moneyR.equals("")) {
             new DialogError("So tien nhan khong the de trong");
             return;
-        }else {
+        } else {
             double money = Double.parseDouble(moneyReceivedTF.getText());
-            if(money < totalReceived || money <= 0) {
+            if (money < totalReceived || money <= 0) {
                 new DialogError("So tien nhan khong the nho hon so tien phai tra");
                 return;
             }
@@ -80,13 +71,13 @@ public class SellController extends AbstractController implements Initializable 
             try {
                 String sql = "insert into ban_hang values(null,?,?,?,?,now(),?,?,?);";
                 pstmt = con.prepareStatement(sql);
-                pstmt.setString(1,bcode);
-                pstmt.setString(2,LoginController.loggerUsername);
-                pstmt.setInt(3,Integer.parseInt(quanTextField.getText()));
-                pstmt.setDouble(4,Double.parseDouble(priceLabel.getText()));
-                pstmt.setDouble(5,Double.parseDouble(moneyReceivedTF.getText()));
-                pstmt.setDouble(6,charge);
-                pstmt.setDouble(7,gia_nhap_Map.get(bcode));
+                pstmt.setString(1, bcode);
+                pstmt.setString(2, LoginController.loggerUsername);
+                pstmt.setInt(3, Integer.parseInt(quanTextField.getText()));
+                pstmt.setDouble(4, Double.parseDouble(priceLabel.getText()));
+                pstmt.setDouble(5, Double.parseDouble(moneyReceivedTF.getText()));
+                pstmt.setDouble(6, charge);
+                pstmt.setDouble(7, gia_nhap_Map.get(bcode));
                 pstmt.execute();
                 pstmt.close();
             } catch (SQLException throwables) {
@@ -95,15 +86,15 @@ public class SellController extends AbstractController implements Initializable 
             try {
                 String sql = "update item set so_luong = so_luong - ? where barcode = ?;";
                 pstmt = con.prepareStatement(sql);
-                pstmt.setInt(1,Integer.parseInt(quanTextField.getText()));
-                pstmt.setString(2,bcode);
+                pstmt.setInt(1, Integer.parseInt(quanTextField.getText()));
+                pstmt.setString(2, bcode);
                 pstmt.executeUpdate();
                 pstmt.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
 
-            new DialogError("Số tiền phải trả lại là : "+ Double.toString(charge));
+            new DialogError("Số tiền phải trả lại là : " + charge);
             moneyReceivedLabel.setVisible(false);
             moneyReceivedTF.setVisible(false);
             completeBtn.setVisible(false);
@@ -117,23 +108,23 @@ public class SellController extends AbstractController implements Initializable 
 
     @FXML
     void Verify(ActionEvent event) {
-        if(barTextField.getText().equals("")||!item_Name_Array.contains(barTextField.getText())){
+        if (barTextField.getText().equals("") || !item_Name_Array.contains(barTextField.getText())) {
             new DialogError("Hay xem lai phan barcode cua san pham");
             return;
-        }else{
+        } else {
             String[] barcode = barTextField.getText().split(" | ");
             bcode = barcode[0];
             String quantity = quanTextField.getText();
-            if(quantity_Map.get(barcode[0]) == 0) {
+            if (quantity_Map.get(barcode[0]) == 0) {
                 new DialogError("con 0 san pham trong kho");
                 return;
             }
-            if(quantity.equals("")||Integer.parseInt(quantity) > quantity_Map.get(barcode[0])){
+            if (quantity.equals("") || Integer.parseInt(quantity) > quantity_Map.get(barcode[0])) {
                 new DialogError("Khong du san pham de ban");
                 return;
             }
             priceLabel.setText(Double.toString(price_Map.get(barcode[0])));
-            totalReceived = price_Map.get(barcode[0])*Integer.parseInt(quantity);
+            totalReceived = price_Map.get(barcode[0]) * Integer.parseInt(quantity);
             totalComeLabel.setText(Double.toString(totalReceived));
 
 
@@ -168,7 +159,7 @@ public class SellController extends AbstractController implements Initializable 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        TextFields.bindAutoCompletion(barTextField,item_Name_Array);
+        TextFields.bindAutoCompletion(barTextField, item_Name_Array);
 
         quanTextField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -193,15 +184,15 @@ public class SellController extends AbstractController implements Initializable 
         String sql = "SELECT * FROM item where  trang_thai = 'dang ban';";
         PreparedStatement pstmt = con.prepareStatement(sql);
 
-        ResultSet rs  = pstmt.executeQuery();
+        ResultSet rs = pstmt.executeQuery();
         String set;
         while (rs.next()) {
-            set = rs.getString("barcode") + " | "+rs.getString("item_name");
+            set = rs.getString("barcode") + " | " + rs.getString("item_name");
             //item_Barcode.add(rs.getString("barcode"));
             item_Name_Array.add(set);
-            price_Map.put(rs.getString("barcode"),rs.getDouble("gia_ban"));
-            quantity_Map.put(rs.getString("barcode"),rs.getInt("so_luong"));
-            gia_nhap_Map.put(rs.getString("barcode"),rs.getDouble("gia_nhap"));
+            price_Map.put(rs.getString("barcode"), rs.getDouble("gia_ban"));
+            quantity_Map.put(rs.getString("barcode"), rs.getInt("so_luong"));
+            gia_nhap_Map.put(rs.getString("barcode"), rs.getDouble("gia_nhap"));
         }
     }
 

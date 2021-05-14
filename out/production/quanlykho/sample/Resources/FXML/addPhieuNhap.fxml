@@ -2,36 +2,43 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.addPhieuNhapController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="sample.Controller.addPhieuNhapController">
 
     <children>
         <BorderPane prefHeight="600.0" prefWidth="600.0">
             <top>
                 <AnchorPane prefHeight="30.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                     <children>
-                        <TextField fx:id="search_tf" layoutX="377.0" layoutY="3.0" prefHeight="25.0" prefWidth="185.0" promptText="tìm sản phẩm trong mã nhập" />
-                        <Button fx:id="addBtn" layoutX="22.0" layoutY="4.0" mnemonicParsing="false" onAction="#addingAction" text="Thêm" />
-                        <Button fx:id="deleteBtn" layoutX="92.0" layoutY="4.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="25.0" prefWidth="56.0" text="Xoá" />
-                        <Button fx:id="saveBtn" layoutX="172.0" layoutY="4.0" mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="46.0" text="Lưu" />
-                  <Button fx:id="addItem" layoutX="259.0" layoutY="4.0" mnemonicParsing="false" onAction="#addItemAction" text="thêm hàng mới" />
+                        <TextField fx:id="search_tf" layoutX="377.0" layoutY="3.0" prefHeight="25.0" prefWidth="185.0"
+                                   promptText="tìm sản phẩm trong mã nhập"/>
+                        <Button fx:id="addBtn" layoutX="22.0" layoutY="4.0" mnemonicParsing="false"
+                                onAction="#addingAction" text="Thêm"/>
+                        <Button fx:id="deleteBtn" layoutX="92.0" layoutY="4.0" mnemonicParsing="false"
+                                onAction="#deleteAction" prefHeight="25.0" prefWidth="56.0" text="Xoá"/>
+                        <Button fx:id="saveBtn" layoutX="172.0" layoutY="4.0" mnemonicParsing="false" onAction="#save"
+                                prefHeight="25.0" prefWidth="46.0" text="Lưu"/>
+                        <Button fx:id="addItem" layoutX="259.0" layoutY="4.0" mnemonicParsing="false"
+                                onAction="#addItemAction" text="thêm hàng mới"/>
                     </children>
                 </AnchorPane>
             </top>
             <center>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button layoutX="217.0" layoutY="458.0" mnemonicParsing="false" onAction="#OKAction" prefWidth="167.0" text="OK" />
-                        <TextField fx:id="ma_Tf" layoutX="194.0" layoutY="253.0" prefHeight="25.0" prefWidth="196.0" />
-                        <Label layoutX="245.0" layoutY="181.0" text="Tạo mã nhập hàng" />
-                        <Label layoutX="253.0" layoutY="330.0" text="Mã công ty " />
-                        <TextField fx:id="ma_cong_ty" layoutX="196.0" layoutY="389.0" prefHeight="25.0" prefWidth="194.0" />
+                        <Button layoutX="217.0" layoutY="458.0" mnemonicParsing="false" onAction="#OKAction"
+                                prefWidth="167.0" text="OK"/>
+                        <TextField fx:id="ma_Tf" layoutX="194.0" layoutY="253.0" prefHeight="25.0" prefWidth="196.0"/>
+                        <Label layoutX="245.0" layoutY="181.0" text="Tạo mã nhập hàng"/>
+                        <Label layoutX="253.0" layoutY="330.0" text="Mã công ty "/>
+                        <TextField fx:id="ma_cong_ty" layoutX="196.0" layoutY="389.0" prefHeight="25.0"
+                                   prefWidth="194.0"/>
                         <TableView fx:id="listAll" prefHeight="570.0" prefWidth="600.0">
                             <columns>
-                                <TableColumn fx:id="ma_nhap_hang" prefWidth="150.0" text="Mã nhập hàng" />
-                                <TableColumn fx:id="item_barcode" prefWidth="150.0" text="Barcode" />
-                                <TableColumn fx:id="so_luong_san_pham" prefWidth="150.0" text="Số lượng sản phẩm" />
-                                <TableColumn fx:id="gia_san_pham" prefWidth="150.0" text="Giá sản phẩm" />
+                                <TableColumn fx:id="ma_nhap_hang" prefWidth="150.0" text="Mã nhập hàng"/>
+                                <TableColumn fx:id="item_barcode" prefWidth="150.0" text="Barcode"/>
+                                <TableColumn fx:id="so_luong_san_pham" prefWidth="150.0" text="Số lượng sản phẩm"/>
+                                <TableColumn fx:id="gia_san_pham" prefWidth="150.0" text="Giá sản phẩm"/>
                             </columns>
                         </TableView>
                     </children>

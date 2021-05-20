@@ -51,7 +51,7 @@ public class insertKHController implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                HomeController.setChildPane("Resources/FXML/listKhach_hang.fxml.fxml");
+                HomeController.setChildPane("Resources/FXML/listKhach_hang.fxml");
                 Stage s = (Stage) tenTF.getScene().getWindow();
                 s.close();
             }

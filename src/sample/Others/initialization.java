@@ -98,6 +98,7 @@ public class initialization {
     public static void setDataForKhachHang() {
         so_lan_mua.clear();
         allKhachHang.clear();
+        idAndName.clear();
         try {
             String sql = "select k.ma_khach_hang,case when x.ma_xuat_hang = null then 0 else count(x.ma_xuat_hang) end as count from xuat_hang x right join khach_hang k on k.ma_khach_hang = x.ma_khach_hang  group by k.ma_khach_hang;";
             PreparedStatement ptsmt = con.prepareStatement(sql);
@@ -120,6 +121,7 @@ public class initialization {
     public static void setDataForCongTy() {
         so_lan_nhap.clear();
         allCongty.clear();
+        idAndCongty.clear();
         try {
             String sql = "select k.id_cong_ty,case when x.ma_nhap_hang = null then 0 else count(x.ma_nhap_hang) end as count  from nhap_hang x right join ben_ban_hang_cho_kho k on k.id_cong_ty = x.id_cong_ty  group by k.id_cong_ty;";
             PreparedStatement ptsmt = con.prepareStatement(sql);

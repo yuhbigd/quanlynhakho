@@ -113,7 +113,7 @@ public class DashboardController extends AbstractController implements Initializ
     public XYChart.Series dataOfLineChart() throws SQLException {
         XYChart.Series series = new XYChart.Series();
         series.setName("số tiền lời từ xuất hàng");
-        String sql = "select sum(c.so_luong_san_pham * c.gia_san_pham) - sum(c.so_luong_san_pham * i.gia_nhap ), date(x.thoi_gian_xuat)  from xuat_hang as x join chi_tiet_xuat_hang as c on x.ma_xuat_hang = c.ma_xuat_hang join item i on i.barcode = c.item_barcode where date(x.thoi_gian_xuat) between date_add(now(),interval -1 month) and date(now()) group by date(x.thoi_gian_xuat);";
+        String sql = "select sum(c.so_luong_san_pham * c.gia_san_pham) - sum(c.so_luong_san_pham * i.gia_nhap ), date(x.thoi_gian_xuat)  from xuat_hang as x join chi_tiet_xuat_hang as c on x.ma_xuat_hang = c.ma_xuat_hang join item i on i.barcode = c.item_barcode where date(x.thoi_gian_xuat) between date_add(now(),interval -1 month) and date(now()) group by date(x.thoi_gian_xuat) order  by x.thoi_gian_xuat ;";
         PreparedStatement ptsmt = con.prepareStatement(sql);
 
         ResultSet rs = ptsmt.executeQuery();

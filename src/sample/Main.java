@@ -14,7 +14,7 @@ public class Main extends Application {
     public void start(Stage myStage) throws Exception {
         new initialization();
         SceneMap.getInstances().setStage(myStage);
-        SceneMap.getInstances().setScene("Resources/FXML/Home.fxml");
+        SceneMap.getInstances().setScene("Resources/FXML/LoginFXML.fxml");
         myStage.setResizable(false);
 
         myStage.show();

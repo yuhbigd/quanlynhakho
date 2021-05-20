@@ -11,10 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
-import sample.Others.ChiTietXuatHang;
-import sample.Others.DialogError;
-import sample.Others.View;
-import sample.Others.initialization;
+import sample.Others.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,14 +49,15 @@ public class addPhieuXuatForm implements Initializable {
             item_barcodeTF.setText(barcode.getValue());
         }
         String[] bc = item_barcodeTF.getText().split(" | ");
-//        if(bc.length < 2) {
-//            for (Item i : initialization.allItem.values()) {
-//                if (i.getBarcode().equals(bc[0])) {
-//                    item_barcodeTF.setText(bc[0]+" | "+i.getItem_name());
-//                    break;
-//                }
-//            }
-//        }
+        if(bc.length < 2) {
+            for (Item i : initialization.allItem.values()) {
+                if (i.getBarcode().equals(bc[0])) {
+                    System.out.println("ss");
+                    item_barcodeTF.setText(bc[0]+" | "+i.getItem_name());
+                    break;
+                }
+            }
+        }
         if (!initialization.allItem.containsKey(item_barcodeTF.getText())) {
             new DialogError("Sản phẩm không tồn tại");
         } else if (item_barcodeTF.getText().length() < 1 || so_luongTF.getText().length() < 1) {

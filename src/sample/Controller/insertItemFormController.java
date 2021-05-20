@@ -106,6 +106,7 @@ public class insertItemFormController implements Initializable {
         initialization.subAllItem.put(bTF.getText(), nTF.getText());
         Stage s = (Stage) saveBtn.getScene().getWindow();
         new DialogError("Nhập loại hàng mới thành công");
+        HomeController.setChildPane("Resources/FXML/listAllItem.fxml");
         s.close();
 
     }
